@@ -1,0 +1,251 @@
+
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>explore module &#8212; mltools 1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/classic.css" />
+    
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="feature module" href="feature.html" />
+    <link rel="prev" title="mltools" href="modules.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="feature.html" title="feature module"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="modules.html" title="mltools"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mltools 1.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="modules.html" accesskey="U">mltools</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">explore module</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="module-explore">
+<span id="explore-module"></span><h1>explore module<a class="headerlink" href="#module-explore" title="Permalink to this headline">¶</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="explore.delete_extreme_outlier">
+<span class="sig-prename descclassname"><span class="pre">explore.</span></span><span class="sig-name descname"><span class="pre">delete_extreme_outlier</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'IQR'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/explore.html#delete_extreme_outlier"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#explore.delete_extreme_outlier" title="Permalink to this definition">¶</a></dt>
+<dd><div class="line-block">
+<div class="line">delete extreme outlier</div>
+<div class="line">outlier detected by Mean and Standard Deviation Method.</div>
+<div class="line">If a value is a certain number(called threshold) of standard deviations away</div>
+<div class="line">from the mean, that data point is identified as an outlier.
+The more extreme outlier, the more the standard deviation is affected.</div>
+</div>
+<p>Outlier detection by Interquartile Ranges Rule, also known as Tukey’s test.
+calculate the IQR ( 75th quantile - 25th quantile)
+and the 25th 75th quantile.
+Any value beyond is regarded as outliers.
+upper_bound = 75th quantile + （IQR * threshold）
+lower_bound = 25th quantile - （IQR * threshold）</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>df</em>) – pandas Dataframe</p></li>
+<li><p><strong>method</strong> (<em>string</em>) – ‘IQR’,’mean_std’</p></li>
+<li><p><strong>threshold</strong> (<em>float</em>) – for IQR Default is 1.5,extreme 3. for mean_std is 3.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>df</strong> – pandas Dataframe without extreme outlier</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>df</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="explore.negative_count">
+<span class="sig-prename descclassname"><span class="pre">explore.</span></span><span class="sig-name descname"><span class="pre">negative_count</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/explore.html#negative_count"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#explore.negative_count" title="Permalink to this definition">¶</a></dt>
+<dd><p>每列负值统计</p>
+<p>Return the columns’s negative value count and percent with negative count great zero as a pandas Dataframe</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>df</em>) – pandas Dataframe</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>negative_df</strong> – pandas Dataframe with negative count and percent</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>df</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="explore.null_count">
+<span class="sig-prename descclassname"><span class="pre">explore.</span></span><span class="sig-name descname"><span class="pre">null_count</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/explore.html#null_count"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#explore.null_count" title="Permalink to this definition">¶</a></dt>
+<dd><p>空缺值统计</p>
+<p>Return the columns’s null count and percent with null count great zero as a pandas Dataframe</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>df</em>) – pandas Dataframe</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>result</strong> – pandas Dataframe with null count and percent</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>df</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="explore.outlier_detect">
+<span class="sig-prename descclassname"><span class="pre">explore.</span></span><span class="sig-name descname"><span class="pre">outlier_detect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'IQR'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.5</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/explore.html#outlier_detect"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#explore.outlier_detect" title="Permalink to this definition">¶</a></dt>
+<dd><dl>
+<dt>每列离群点统计</dt><dd><p>outlier detection by Mean and Standard Deviation Method.
+If a value is a certain number(called threshold) of standard deviations away
+from the mean, that data point is identified as an outlier.
+The more extreme the outlier, the more the standard deviation is affected.</p>
+<p>outlier detection by Interquartile Ranges Rule, also known as Tukey’s test.
+calculate the IQR ( 75th quantile - 25th quantile)
+and the 25th 75th quantile.
+Any value beyond is regarded as outliers.
+upper bound = 75th quantile + （IQR * threshold）
+lower bound = 25th quantile - （IQR * threshold）</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>df</em>) – pandas Dataframe</p></li>
+<li><p><strong>method</strong> (<em>string</em>) – ‘IQR’,’mean_std’</p></li>
+<li><p><strong>threshold</strong> (<em>float</em>) – for IQR Default is 1.5,extreme 3. for mean_std is 3.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>df_count</strong> (<em>df</em>) – pandas Dataframe with outlier count and percent</p></li>
+<li><p><strong>outlier_df</strong> (<em>df</em>) – outlier values of each columns</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="explore.unique_count">
+<span class="sig-prename descclassname"><span class="pre">explore.</span></span><span class="sig-name descname"><span class="pre">unique_count</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/explore.html#unique_count"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#explore.unique_count" title="Permalink to this definition">¶</a></dt>
+<dd><p>唯一值检查</p>
+<p>Return the columns’s with one value as a pandas Dataframe</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>df</em>) – pandas Dataframe</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>unique_df</strong> – pandas Dataframe with one value</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>df</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="explore.zero_count">
+<span class="sig-prename descclassname"><span class="pre">explore.</span></span><span class="sig-name descname"><span class="pre">zero_count</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/explore.html#zero_count"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#explore.zero_count" title="Permalink to this definition">¶</a></dt>
+<dd><p>每列0值统计</p>
+<p>Return the columns’s zero count and percent with zero count great zero as a pandas Dataframe</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>df</em>) – pandas Dataframe</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>zero_df</strong> – pandas Dataframe with zero count and percent.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>df</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="modules.html"
+                        title="previous chapter">mltools</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="feature.html"
+                        title="next chapter">feature module</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/generated/explore.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="feature.html" title="feature module"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="modules.html" title="mltools"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mltools 1.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="modules.html" >mltools</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">explore module</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, Daniel SY Wang.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.0.2.
+    </div>
+  </body>
+</html>

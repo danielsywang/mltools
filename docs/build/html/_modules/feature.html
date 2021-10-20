@@ -1,0 +1,288 @@
+
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>feature &#8212; mltools 1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/classic.css" />
+    
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mltools 1.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">feature</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for feature</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">stats</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="p">(</span><span class="n">MinMaxScaler</span><span class="p">,</span> <span class="n">PowerTransformer</span><span class="p">,</span>
+                                   <span class="n">QuantileTransformer</span><span class="p">,</span> <span class="n">RobustScaler</span><span class="p">,</span>
+                                   <span class="n">StandardScaler</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">statsmodels.stats.outliers_influence</span> <span class="kn">import</span> <span class="n">variance_inflation_factor</span>
+
+<span class="c1"># 2021.09.14 Created by Daniel SY wang</span>
+
+
+<div class="viewcode-block" id="get_corr"><a class="viewcode-back" href="../generated/feature.html#feature.get_corr">[docs]</a><span class="k">def</span> <span class="nf">get_corr</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;pearson&#39;</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">0.7</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    | 根据相关系数来选择特征,消除多重共线性的特征</span>
+<span class="sd">    | Return the columns pair and correlation coefficient with correlation coefficient great threshold as a pandas Dataframe</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    data : df</span>
+<span class="sd">        pandas Dataframe</span>
+
+<span class="sd">    method : string</span>
+<span class="sd">        &#39;pearson&#39;,&#39;spearman&#39;,&#39;kendall&#39;</span>
+
+<span class="sd">    threshold : float</span>
+<span class="sd">        default 0.7</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    df : df</span>
+<span class="sd">        pandas Dataframe with null count and percent</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">corr</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">corr</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="n">method</span><span class="p">)</span>
+    <span class="n">x_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">corr</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+    <span class="n">y_list</span> <span class="o">=</span> <span class="n">x_list</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">records</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">x_list</span><span class="p">:</span>
+        <span class="n">y_list</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">y_list</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">y_list</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">corr</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">])</span> <span class="o">&gt;</span> <span class="n">threshold</span><span class="p">:</span>
+                    <span class="n">records</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">corr</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">]])</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">records</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Feature1&#39;</span><span class="p">,</span> <span class="s1">&#39;Feature2&#39;</span><span class="p">,</span> <span class="s1">&#39;Corr&#39;</span><span class="p">])</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;Feature1&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">df</span></div>
+
+
+<div class="viewcode-block" id="get_VIF"><a class="viewcode-back" href="../generated/feature.html#feature.get_VIF">[docs]</a><span class="k">def</span> <span class="nf">get_VIF</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    | 根据VIF来选择特征,消除多重共线性</span>
+<span class="sd">    | detect the multicollinear features using the variance inflation factor </span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    data : df</span>
+<span class="sd">        pandas Dataframe</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    vif_info : df</span>
+<span class="sd">        pandas Dataframe with VIF value</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">vif_info</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+    <span class="n">vif_info</span><span class="p">[</span><span class="s1">&#39;VIF&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">variance_inflation_factor</span><span class="p">(</span>
+        <span class="n">data</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])]</span>
+    <span class="n">vif_info</span><span class="p">[</span><span class="s1">&#39;Column&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">columns</span>
+    <span class="n">vif_info</span> <span class="o">=</span> <span class="n">vif_info</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span>
+        <span class="s1">&#39;VIF&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">vif_info</span></div>
+
+
+<div class="viewcode-block" id="normal_test"><a class="viewcode-back" href="../generated/feature.html#feature.normal_test">[docs]</a><span class="k">def</span> <span class="nf">normal_test</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;jb&#39;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    检验数据是否服从正态分布,三种检验方案都是用于大数据分析\n</span>
+
+<span class="sd">    | 提出假设：x从正态分布。</span>
+<span class="sd">    | P值&gt;指定水平0.05,接受原假设，可以认为样本数据在5%的显著水平下服从正态分布,以&#39;normal&#39;表示.</span>
+<span class="sd">    | P值&lt;指定水平0.05,拒绝原假设，认为样本数据在5%的显著水平下不服从正态分布,以&#39;-&#39;表示. </span>
+
+<span class="sd">    有三种备选检测方案：</span>
+
+<span class="sd">    stats.jarque_bera(data)</span>
+
+<span class="sd">    stats.kstest(rvs, cdf, args=(), N=20, alternative=’two_sided’, mode=’approx’, \*\*kwds)</span>
+<span class="sd">    对于正态性检验，我们只需要设置三个参数即可：</span>
+<span class="sd">    rvs：待检验的数据</span>
+<span class="sd">    cdf：检验方法，这里我们设置为‘norm’，即正态性检验</span>
+<span class="sd">    alternative：默认为双尾检验，可以设置为‘less’或‘greater’作单尾检验。</span>
+
+<span class="sd">    scipy.stats.normaltest(a, axis=0, nan_policy=’propagate’)</span>
+<span class="sd">    这里的三个参数都有必要看一下：</span>
+<span class="sd">    a：待检验的数据</span>
+<span class="sd">    axis：默认为0，表示在0轴上检验，即对数据的每一行做正态性检验，我们可以设置为 axis=None 来对整个数据做检验</span>
+<span class="sd">    nan_policy：当输入的数据中有空值时的处理办法。默认为 ‘propagate’，返回空值；</span>
+<span class="sd">    设置为 ‘raise’ 时，抛出错误；设置为 ‘omit’ 时，在计算中忽略空值。    </span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    data : df</span>
+<span class="sd">        pandas Dataframe</span>
+
+<span class="sd">    method : string</span>
+<span class="sd">        &#39;jb&#39;（default）, &#39;ks&#39; , &#39;norm&#39;</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    data_test : df</span>
+<span class="sd">        pandas Dataframe </span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">col_test</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">col</span><span class="p">]</span>
+        <span class="n">s</span><span class="o">.</span><span class="n">replace</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="n">s</span><span class="p">[</span><span class="n">s</span><span class="o">.</span><span class="n">notnull</span><span class="p">()]</span>
+
+        <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;jb&#39;</span><span class="p">:</span>
+            <span class="n">_</span><span class="p">,</span> <span class="n">pval</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">jarque_bera</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;ks&#39;</span><span class="p">:</span>
+            <span class="n">_</span><span class="p">,</span> <span class="n">pval</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">kstest</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="s1">&#39;norm&#39;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;norm&#39;</span><span class="p">:</span>
+            <span class="n">_</span><span class="p">,</span> <span class="n">pval</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">normaltest</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">pval</span> <span class="o">&lt;</span> <span class="mf">0.05</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="s1">&#39;-&#39;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="s1">&#39;Normal&#39;</span>
+        <span class="n">col_test</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+    <span class="n">data_test</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">col_test</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">data_test</span></div>
+
+
+<div class="viewcode-block" id="transformer"><a class="viewcode-back" href="../generated/feature.html#feature.transformer">[docs]</a><span class="k">def</span> <span class="nf">transformer</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">trans_method_list</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">test_method</span><span class="o">=</span><span class="s1">&#39;jb&#39;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    先对数据集进行转换，然后检验转换后的数据是否服从正态分布\n</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    data : df</span>
+<span class="sd">        pandas Dataframe</span>
+
+<span class="sd">    trans_method_list : list</span>
+<span class="sd">        a list of &#39;sqrt&#39;,&#39;cbrt&#39;,&#39;log1p&#39;,&#39;reciprocal&#39;,</span>
+<span class="sd">        &#39;square&#39;,&#39;cube&#39;,&#39;expm1&#39;,&#39;minmax&#39;,&#39;zscore&#39;,</span>
+<span class="sd">        &#39;robust&#39;,&#39;quant&#39;,&#39;box&#39;,&#39;yeo&#39;.</span>
+<span class="sd">        user can choice some transfomer method as a list.</span>
+<span class="sd">        such as: list of &#39;minmax&#39;,&#39;zscore&#39;,&#39;robust&#39;,&#39;box&#39;,&#39;yeo&#39;.</span>
+<span class="sd">        default includes all method.    </span>
+
+<span class="sd">    test_method : string</span>
+<span class="sd">        &#39;jb&#39;（default）, &#39;ks&#39; , &#39;norm&#39;</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    result : df</span>
+<span class="sd">        pandas Dataframe</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">trans_method_list</span> <span class="o">==</span> <span class="s1">&#39;all&#39;</span><span class="p">:</span>
+        <span class="n">trans_method_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;sqrt&#39;</span><span class="p">,</span> <span class="s1">&#39;cbrt&#39;</span><span class="p">,</span> <span class="s1">&#39;log1p&#39;</span><span class="p">,</span> <span class="s1">&#39;reciprocal&#39;</span><span class="p">,</span> <span class="s1">&#39;square&#39;</span><span class="p">,</span>
+                             <span class="s1">&#39;cube&#39;</span><span class="p">,</span> <span class="s1">&#39;expm1&#39;</span><span class="p">,</span> <span class="s1">&#39;minmax&#39;</span><span class="p">,</span> <span class="s1">&#39;zscore&#39;</span><span class="p">,</span> <span class="s1">&#39;robust&#39;</span><span class="p">,</span> 
+                             <span class="s1">&#39;quant&#39;</span><span class="p">,</span> <span class="s1">&#39;box&#39;</span><span class="p">,</span> <span class="s1">&#39;yeo&#39;</span><span class="p">]</span>
+
+    <span class="n">result</span> <span class="o">=</span> <span class="n">normal_test</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="n">test_method</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">trans_method</span> <span class="ow">in</span> <span class="n">trans_method_list</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">trans_method</span> <span class="o">==</span> <span class="s1">&#39;sqrt&#39;</span><span class="p">:</span>
+            <span class="n">temp_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">trans_method</span> <span class="o">==</span> <span class="s1">&#39;cbrt&#39;</span><span class="p">:</span>
+            <span class="n">temp_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cbrt</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">trans_method</span> <span class="o">==</span> <span class="s1">&#39;log1p&#39;</span><span class="p">:</span>
+            <span class="n">temp_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log1p</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">trans_method</span> <span class="o">==</span> <span class="s1">&#39;reciprocal&#39;</span><span class="p">:</span>
+            <span class="n">temp_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">reciprocal</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">trans_method</span> <span class="o">==</span> <span class="s1">&#39;square&#39;</span><span class="p">:</span>
+            <span class="n">temp_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">square</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">trans_method</span> <span class="o">==</span> <span class="s1">&#39;cube&#39;</span><span class="p">:</span>
+            <span class="n">temp_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">trans_method</span> <span class="o">==</span> <span class="s1">&#39;expm1&#39;</span><span class="p">:</span>
+            <span class="n">temp_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">expm1</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">trans_method</span> <span class="o">==</span> <span class="s1">&#39;minmax&#39;</span><span class="p">:</span>
+            <span class="n">trans</span> <span class="o">=</span> <span class="n">MinMaxScaler</span><span class="p">()</span>
+        <span class="k">elif</span> <span class="n">trans_method</span> <span class="o">==</span> <span class="s1">&#39;zscore&#39;</span><span class="p">:</span>
+            <span class="n">trans</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
+        <span class="k">elif</span> <span class="n">trans_method</span> <span class="o">==</span> <span class="s1">&#39;robust&#39;</span><span class="p">:</span>
+            <span class="n">trans</span> <span class="o">=</span> <span class="n">RobustScaler</span><span class="p">()</span>
+        <span class="k">elif</span> <span class="n">trans_method</span> <span class="o">==</span> <span class="s1">&#39;quant&#39;</span><span class="p">:</span>
+            <span class="n">trans</span> <span class="o">=</span> <span class="n">QuantileTransformer</span><span class="p">(</span>
+                <span class="n">n_quantiles</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">output_distribution</span><span class="o">=</span><span class="s1">&#39;normal&#39;</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">trans_method</span> <span class="o">==</span> <span class="s1">&#39;box&#39;</span><span class="p">:</span>
+            <span class="c1"># The Box-Cox transformation can only be applied to strictly positive data</span>
+            <span class="n">trans</span> <span class="o">=</span> <span class="n">PowerTransformer</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;box-cox&#39;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">trans_method</span> <span class="o">==</span> <span class="s1">&#39;yeo&#39;</span><span class="p">:</span>
+            <span class="n">trans</span> <span class="o">=</span> <span class="n">PowerTransformer</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;yeo-johnson&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">trans_method</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;minmax&#39;</span><span class="p">,</span> <span class="s1">&#39;zscore&#39;</span><span class="p">,</span> <span class="s1">&#39;robust&#39;</span><span class="p">,</span> <span class="s1">&#39;quant&#39;</span><span class="p">,</span> <span class="s1">&#39;box&#39;</span><span class="p">,</span> <span class="s1">&#39;yeo&#39;</span><span class="p">]:</span>
+            <span class="n">temp_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+                <span class="n">trans</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="n">columns</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+
+        <span class="n">temp</span> <span class="o">=</span> <span class="n">normal_test</span><span class="p">(</span><span class="n">temp_data</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="n">test_method</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">result</span><span class="p">,</span> <span class="n">temp</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">result</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;orginal&#39;</span><span class="p">]</span><span class="o">+</span><span class="n">trans_method_list</span>
+    <span class="k">return</span> <span class="n">result</span></div>
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mltools 1.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">feature</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, Daniel SY Wang.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.0.2.
+    </div>
+  </body>
+</html>

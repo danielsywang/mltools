@@ -1,0 +1,317 @@
+
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>mlcluster module &#8212; mltools 1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/classic.css" />
+    
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="plot module" href="plot.html" />
+    <link rel="prev" title="feature module" href="feature.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="plot.html" title="plot module"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="feature.html" title="feature module"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mltools 1.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="modules.html" accesskey="U">mltools</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">mlcluster module</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="module-mlcluster">
+<span id="mlcluster-module"></span><h1>mlcluster module<a class="headerlink" href="#module-mlcluster" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="mlcluster.ClusterScorePlot">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">mlcluster.</span></span><span class="sig-name descname"><span class="pre">ClusterScorePlot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">steps</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">param_grid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scoring</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">memory</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mlcluster.html#ClusterScorePlot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mlcluster.ClusterScorePlot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">sklearn.pipeline.Pipeline</span></code></p>
+<p>ClusterScorePlot inherited from Pipeline,score and plot cluster without labels.
+It’s same as pipeline+gridseach.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>steps</strong> (<em>list</em>) – List of (name, transform) tuples (implementing fit/transform) that are
+chained, in the order in which they are chained, with the last object
+a cluster estimator.</p></li>
+<li><p><strong>param_grid</strong> (<em>list of dict</em>) – usage reference example part.</p></li>
+<li><p><strong>scoring</strong> (<em>list</em>) – list of ‘si’,’ca’,’da’ for cluster scoring,
+‘si’ means metrics.silhouette_score,
+‘ca’ means metrics.calinski_harabasz_score,
+‘da’ means metrics.davies_bouldin_score.</p></li>
+<li><p><strong>memory</strong> (<em>str</em><em> or </em><em>object with the joblib.Memory interface</em><em>, </em><em>default=None</em>) – Used to cache the fitted transformers of the pipeline. By default,
+no caching is performed. If a string is given, it is the path to
+the caching directory. Enabling caching triggers a clone of
+the transformers before fitting. Therefore, the transformer
+instance given to the pipeline cannot be inspected
+directly. Use the attribute <code class="docutils literal notranslate"><span class="pre">named_steps</span></code> or <code class="docutils literal notranslate"><span class="pre">steps</span></code> to
+inspect estimators within the pipeline. Caching the
+transformers is advantageous when fitting is time consuming.</p></li>
+<li><p><strong>verbose</strong> (<em>bool</em><em>, </em><em>default=False</em>) – If True, the time elapsed while fitting each step will be printed as it
+is completed.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mlcluster.ClusterScorePlot.named_steps">
+<span class="sig-name descname"><span class="pre">named_steps</span></span><a class="headerlink" href="#mlcluster.ClusterScorePlot.named_steps" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dictionary-like object, with the following attributes.
+Read-only attribute to access any step parameter by user given name.
+Keys are step names and values are steps parameters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Bunch</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<p class="rubric">Examples</p>
+<p>Get the best socres and paramters</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#setup steps:</span>
+<span class="bp">cls</span> <span class="o">=</span> <span class="p">[(</span><span class="s1">&#39;imputer&#39;</span><span class="p">,</span> <span class="n">SimpleImputer</span><span class="p">(</span><span class="n">strategy</span><span class="o">=</span><span class="s1">&#39;median&#39;</span><span class="p">)),</span>
+    <span class="p">(</span><span class="s1">&#39;scaler&#39;</span><span class="p">,</span> <span class="n">StandardScaler</span><span class="p">()),</span>
+    <span class="p">(</span><span class="s1">&#39;cluster&#39;</span><span class="p">,</span><span class="n">cluster</span><span class="o">.</span><span class="n">AgglomerativeClustering</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="mi">5</span><span class="p">))]</span>
+
+<span class="c1">#setup param_grid:</span>
+<span class="n">lr</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span>
+<span class="n">imp</span> <span class="o">=</span> <span class="n">IterativeImputer</span><span class="p">(</span><span class="n">estimator</span><span class="o">=</span><span class="n">lr</span><span class="p">,</span><span class="n">missing_values</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">imputation_order</span><span class="o">=</span><span class="s1">&#39;roman&#39;</span><span class="p">,</span><span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">knn</span> <span class="o">=</span> <span class="n">KNNImputer</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">add_indicator</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">param_grid</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span> <span class="s1">&#39;imputer&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">SimpleImputer</span><span class="p">(</span><span class="n">strategy</span><span class="o">=</span><span class="s1">&#39;median&#39;</span><span class="p">),</span><span class="n">imp</span><span class="p">,</span><span class="n">knn</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span>
+    <span class="s1">&#39;scaler&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">MinMaxScaler</span><span class="p">(),</span><span class="n">StandardScaler</span><span class="p">(),</span><span class="n">RobustScaler</span><span class="p">(),</span><span class="kc">None</span><span class="p">],</span>
+    <span class="s1">&#39;cluster&#39;</span><span class="p">:[</span><span class="n">cluster</span><span class="o">.</span><span class="n">AgglomerativeClustering</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="mi">5</span><span class="p">),</span>
+                <span class="n">cluster</span><span class="o">.</span><span class="n">DBSCAN</span><span class="p">(</span><span class="n">eps</span><span class="o">=</span><span class="mf">0.30</span><span class="p">,</span> <span class="n">min_samples</span><span class="o">=</span><span class="mi">10</span><span class="p">),</span>
+                <span class="n">cluster</span><span class="o">.</span><span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="mi">5</span><span class="p">),</span>
+                <span class="n">GaussianMixture</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">5</span><span class="p">)]}]</span>
+
+<span class="c1">#setup scoring:</span>
+<span class="n">scoring</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;da&#39;</span><span class="p">,</span> <span class="s1">&#39;si&#39;</span><span class="p">,</span> <span class="s1">&#39;ca&#39;</span><span class="p">]</span>
+
+<span class="c1">#get the best scores:</span>
+<span class="n">clustersearch</span><span class="o">=</span><span class="n">Cluster_Score_Plot</span><span class="p">(</span><span class="n">steps</span><span class="o">=</span><span class="bp">cls</span><span class="p">,</span><span class="n">param_grid</span><span class="o">=</span><span class="n">param_grid</span><span class="p">,</span><span class="n">scoring</span><span class="o">=</span><span class="n">scoring</span><span class="p">)</span>
+<span class="n">score_df</span><span class="o">=</span><span class="n">clustersearch</span><span class="o">.</span><span class="n">get_score</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="n">score_df</span>
+</pre></div>
+</div>
+<p>Polt scatter diagram for best paramters</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#param_grid : setup param_grid using best_score_df param list</span>
+<span class="n">best_score_df</span><span class="o">=</span><span class="n">clustersearch</span><span class="o">.</span><span class="n">get_best_score</span><span class="p">(</span><span class="n">score_df</span><span class="p">,</span><span class="n">n_best_score</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">param_grid</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">best_score_df</span><span class="p">[</span><span class="s1">&#39;param&#39;</span><span class="p">])</span>
+
+<span class="c1">#plot scatter using best_score_df param</span>
+<span class="n">clustersearch</span><span class="o">=</span><span class="n">Cluster_Score_Plot</span><span class="p">(</span><span class="n">steps</span><span class="o">=</span><span class="bp">cls</span><span class="p">,</span><span class="n">param_grid</span><span class="o">=</span><span class="n">best_score_df</span><span class="p">,</span><span class="n">scoring</span><span class="o">=</span><span class="n">scoring</span><span class="p">)</span>
+<span class="n">clustersearch</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="n">param_type</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="n">ncol</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="mlcluster.ClusterScorePlot.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">fit_params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mlcluster.html#ClusterScorePlot.fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mlcluster.ClusterScorePlot.fit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fit the model</p>
+<p>Fit all the transforms one after the other and transform the
+data, then fit the transformed data using the final estimator.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> (<em>iterable</em>) – Training data. Must fulfill input requirements of first step of the
+pipeline.</p></li>
+<li><p><strong>y</strong> (<em>iterable</em><em>, </em><em>default=None</em>) – Training targets. Must fulfill label requirements for all steps of
+the pipeline.</p></li>
+<li><p><strong>**fit_params</strong> (<em>dict of string -&gt; object</em>) – Parameters passed to the <code class="docutils literal notranslate"><span class="pre">fit</span></code> method of each step, where
+each parameter name is prefixed such that parameter <code class="docutils literal notranslate"><span class="pre">p</span></code> for step
+<code class="docutils literal notranslate"><span class="pre">s</span></code> has key <code class="docutils literal notranslate"><span class="pre">s__p</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>self</strong> – This estimator</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Pipeline</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mlcluster.ClusterScorePlot.get_best_score">
+<span class="sig-name descname"><span class="pre">get_best_score</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_best_score</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mlcluster.html#ClusterScorePlot.get_best_score"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mlcluster.ClusterScorePlot.get_best_score" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the best score DataFrame</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>df</em>) – DataFrame of param and scores</p></li>
+<li><p><strong>n_best_score</strong> (<em>n best score for each scoring method</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>data_best_score</strong> – DataFrame of the best score and param</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>df</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mlcluster.ClusterScorePlot.get_score">
+<span class="sig-name descname"><span class="pre">get_score</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mlcluster.html#ClusterScorePlot.get_score"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mlcluster.ClusterScorePlot.get_score" title="Permalink to this definition">¶</a></dt>
+<dd><p>Caculate X’s cluster score</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>X</strong> (<em>df</em>) – DataFrame</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>df_score</strong> – DataFrame contain param and scores</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>df</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mlcluster.ClusterScorePlot.plot">
+<span class="sig-name descname"><span class="pre">plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">param_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'grid'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ncol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figsize_x</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale_y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mlcluster.html#ClusterScorePlot.plot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mlcluster.ClusterScorePlot.plot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Preprocessing transform X,then TSNE transform, plot scatterplot</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> (<em>data</em>) – DataFrame</p></li>
+<li><p><strong>param_type</strong> (<em>string</em>) – ‘grid’(default) for param_grid,’’ for best_score param.</p></li>
+<li><p><strong>ncol</strong> (<em>int</em>) – figure number in a row</p></li>
+<li><p><strong>figsize_x</strong> (<em>float</em>) – sub-figure width</p></li>
+<li><p><strong>scale_y</strong> (<em>float</em>) – scale height</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>return</strong> – plot multiple figures</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mlcluster.ClusterScorePlot.predict">
+<span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">predict_params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mlcluster.html#ClusterScorePlot.predict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mlcluster.ClusterScorePlot.predict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply transforms to the data, and predict with the final estimator</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> (<em>iterable</em>) – Data to predict on. Must fulfill input requirements of first step
+of the pipeline.</p></li>
+<li><p><strong>**predict_params</strong> (<em>dict of string -&gt; object</em>) – <p>Parameters to the <code class="docutils literal notranslate"><span class="pre">predict</span></code> called at the end of all
+transformations in the pipeline. Note that while this may be
+used to return uncertainties from some models with return_std
+or return_cov, uncertainties that are generated by the
+transformations in the pipeline are not propagated to the
+final estimator.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 0.20.</span></p>
+</div>
+</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>y_pred</strong></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>array-like</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mlcluster.ClusterScorePlot.steps">
+<span class="sig-name descname"><span class="pre">steps</span></span><em class="property"><span class="pre">:</span> <span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#mlcluster.ClusterScorePlot.steps" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="feature.html"
+                        title="previous chapter">feature module</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="plot.html"
+                        title="next chapter">plot module</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/generated/mlcluster.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="plot.html" title="plot module"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="feature.html" title="feature module"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mltools 1.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="modules.html" >mltools</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">mlcluster module</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, Daniel SY Wang.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.0.2.
+    </div>
+  </body>
+</html>

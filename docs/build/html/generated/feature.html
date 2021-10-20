@@ -1,0 +1,220 @@
+
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>feature module &#8212; mltools 1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/classic.css" />
+    
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="mlcluster module" href="mlcluster.html" />
+    <link rel="prev" title="explore module" href="explore.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="mlcluster.html" title="mlcluster module"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="explore.html" title="explore module"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mltools 1.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="modules.html" accesskey="U">mltools</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">feature module</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="module-feature">
+<span id="feature-module"></span><h1>feature module<a class="headerlink" href="#module-feature" title="Permalink to this headline">¶</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="feature.get_VIF">
+<span class="sig-prename descclassname"><span class="pre">feature.</span></span><span class="sig-name descname"><span class="pre">get_VIF</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/feature.html#get_VIF"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#feature.get_VIF" title="Permalink to this definition">¶</a></dt>
+<dd><div class="line-block">
+<div class="line">根据VIF来选择特征,消除多重共线性</div>
+<div class="line">detect the multicollinear features using the variance inflation factor</div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>df</em>) – pandas Dataframe</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>vif_info</strong> – pandas Dataframe with VIF value</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>df</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="feature.get_corr">
+<span class="sig-prename descclassname"><span class="pre">feature.</span></span><span class="sig-name descname"><span class="pre">get_corr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'pearson'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.7</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/feature.html#get_corr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#feature.get_corr" title="Permalink to this definition">¶</a></dt>
+<dd><div class="line-block">
+<div class="line">根据相关系数来选择特征,消除多重共线性的特征</div>
+<div class="line">Return the columns pair and correlation coefficient with correlation coefficient great threshold as a pandas Dataframe</div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>df</em>) – pandas Dataframe</p></li>
+<li><p><strong>method</strong> (<em>string</em>) – ‘pearson’,’spearman’,’kendall’</p></li>
+<li><p><strong>threshold</strong> (<em>float</em>) – default 0.7</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>df</strong> – pandas Dataframe with null count and percent</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>df</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="feature.normal_test">
+<span class="sig-prename descclassname"><span class="pre">feature.</span></span><span class="sig-name descname"><span class="pre">normal_test</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'jb'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/feature.html#normal_test"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#feature.normal_test" title="Permalink to this definition">¶</a></dt>
+<dd><p>检验数据是否服从正态分布,三种检验方案都是用于大数据分析</p>
+<div class="line-block">
+<div class="line">提出假设：x从正态分布。</div>
+<div class="line">P值&gt;指定水平0.05,接受原假设，可以认为样本数据在5%的显著水平下服从正态分布,以’normal’表示.</div>
+<div class="line">P值&lt;指定水平0.05,拒绝原假设，认为样本数据在5%的显著水平下不服从正态分布,以’-‘表示.</div>
+</div>
+<p>有三种备选检测方案：</p>
+<p>stats.jarque_bera(data)</p>
+<p>stats.kstest(rvs, cdf, args=(), N=20, alternative=’two_sided’, mode=’approx’, **kwds)
+对于正态性检验，我们只需要设置三个参数即可：
+rvs：待检验的数据
+cdf：检验方法，这里我们设置为‘norm’，即正态性检验
+alternative：默认为双尾检验，可以设置为‘less’或‘greater’作单尾检验。</p>
+<p>scipy.stats.normaltest(a, axis=0, nan_policy=’propagate’)
+这里的三个参数都有必要看一下：
+a：待检验的数据
+axis：默认为0，表示在0轴上检验，即对数据的每一行做正态性检验，我们可以设置为 axis=None 来对整个数据做检验
+nan_policy：当输入的数据中有空值时的处理办法。默认为 ‘propagate’，返回空值；
+设置为 ‘raise’ 时，抛出错误；设置为 ‘omit’ 时，在计算中忽略空值。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>df</em>) – pandas Dataframe</p></li>
+<li><p><strong>method</strong> (<em>string</em>) – ‘jb’（default）, ‘ks’ , ‘norm’</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>data_test</strong> – pandas Dataframe</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>df</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="feature.transformer">
+<span class="sig-prename descclassname"><span class="pre">feature.</span></span><span class="sig-name descname"><span class="pre">transformer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trans_method_list</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'all'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">test_method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'jb'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/feature.html#transformer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#feature.transformer" title="Permalink to this definition">¶</a></dt>
+<dd><p>先对数据集进行转换，然后检验转换后的数据是否服从正态分布</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>df</em>) – pandas Dataframe</p></li>
+<li><p><strong>trans_method_list</strong> (<em>list</em>) – a list of ‘sqrt’,’cbrt’,’log1p’,’reciprocal’,
+‘square’,’cube’,’expm1’,’minmax’,’zscore’,
+‘robust’,’quant’,’box’,’yeo’.
+user can choice some transfomer method as a list.
+such as: list of ‘minmax’,’zscore’,’robust’,’box’,’yeo’.
+default includes all method.</p></li>
+<li><p><strong>test_method</strong> (<em>string</em>) – ‘jb’（default）, ‘ks’ , ‘norm’</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>result</strong> – pandas Dataframe</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>df</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="explore.html"
+                        title="previous chapter">explore module</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="mlcluster.html"
+                        title="next chapter">mlcluster module</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/generated/feature.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="mlcluster.html" title="mlcluster module"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="explore.html" title="explore module"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mltools 1.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="modules.html" >mltools</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">feature module</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, Daniel SY Wang.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.0.2.
+    </div>
+  </body>
+</html>

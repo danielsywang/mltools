@@ -1,0 +1,308 @@
+
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>explore &#8212; mltools 1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/classic.css" />
+    
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mltools 1.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">explore</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for explore</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="c1"># 2021.09.14 Created by Daniel SY wang</span>
+
+
+<div class="viewcode-block" id="null_count"><a class="viewcode-back" href="../generated/explore.html#explore.null_count">[docs]</a><span class="k">def</span> <span class="nf">null_count</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    空缺值统计</span>
+
+<span class="sd">    Return the columns&#39;s null count and percent with null count great zero as a pandas Dataframe</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    data : df</span>
+<span class="sd">        pandas Dataframe</span>
+
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    result : df</span>
+<span class="sd">        pandas Dataframe with null count and percent</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">result</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">data</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">(),</span> <span class="n">data</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">*</span><span class="mi">100</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">{</span>
+                           <span class="mi">0</span><span class="p">:</span> <span class="s1">&#39;total_missing&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="s1">&#39;missing_percent&#39;</span><span class="p">})</span>
+
+    <span class="c1"># result.round(2)pd小数位数:2位</span>
+    <span class="n">col</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="n">result</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span>
+        <span class="n">by</span><span class="o">=</span><span class="n">col</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">result</span></div>
+
+
+<div class="viewcode-block" id="unique_count"><a class="viewcode-back" href="../generated/explore.html#explore.unique_count">[docs]</a><span class="k">def</span> <span class="nf">unique_count</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    唯一值检查\n</span>
+<span class="sd">    Return the columns&#39;s with one value as a pandas Dataframe</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    data : df</span>
+<span class="sd">        pandas Dataframe</span>
+
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    unique_df : df</span>
+<span class="sd">        pandas Dataframe with one value </span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">unique_stats</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">nunique</span><span class="p">())</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="s1">&#39;nunique&#39;</span><span class="p">})</span>
+
+    <span class="c1"># 不需要索引名</span>
+    <span class="c1"># unique_stats.index.set_names(&#39;feature&#39;,inplace=True)</span>
+    <span class="n">col</span> <span class="o">=</span> <span class="n">unique_stats</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">unique_df</span> <span class="o">=</span> <span class="n">unique_stats</span><span class="p">[</span><span class="n">unique_stats</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">unique_df</span></div>
+
+
+<div class="viewcode-block" id="zero_count"><a class="viewcode-back" href="../generated/explore.html#explore.zero_count">[docs]</a><span class="k">def</span> <span class="nf">zero_count</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    每列0值统计\n</span>
+<span class="sd">    Return the columns&#39;s zero count and percent with zero count great zero as a pandas Dataframe</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    data : df </span>
+<span class="sd">        pandas Dataframe</span>
+
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    zero_df : df</span>
+<span class="sd">        pandas Dataframe with zero count and percent. </span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">zero_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">data</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">count</span><span class="p">())</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span>
+        <span class="n">by</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="s1">&#39;zero_count&#39;</span><span class="p">})</span>
+    <span class="n">zero_df</span><span class="p">[</span><span class="s1">&#39;zero_percent&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">zero_df</span><span class="p">[</span><span class="s1">&#39;zero_count&#39;</span><span class="p">]</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="o">*</span><span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">col</span> <span class="o">=</span> <span class="n">zero_df</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">zero_df</span> <span class="o">=</span> <span class="n">zero_df</span><span class="p">[</span><span class="n">zero_df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">zero_df</span></div>
+
+
+<div class="viewcode-block" id="negative_count"><a class="viewcode-back" href="../generated/explore.html#explore.negative_count">[docs]</a><span class="k">def</span> <span class="nf">negative_count</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    每列负值统计\n</span>
+<span class="sd">    Return the columns&#39;s negative value count and percent with negative count great zero as a pandas Dataframe</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    data : df</span>
+<span class="sd">        pandas Dataframe</span>
+
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    negative_df : df</span>
+<span class="sd">        pandas Dataframe with negative count and percent </span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">negative_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">data</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">count</span><span class="p">())</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span>
+        <span class="mi">0</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="s1">&#39;negative_count&#39;</span><span class="p">})</span>
+    <span class="n">negative_df</span><span class="p">[</span><span class="s1">&#39;negative_percent&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">negative_df</span><span class="p">[</span><span class="s1">&#39;negative_count&#39;</span><span class="p">]</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="o">*</span><span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">col</span> <span class="o">=</span> <span class="n">negative_df</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">negative_df</span> <span class="o">=</span> <span class="n">negative_df</span><span class="p">[</span><span class="n">negative_df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">negative_df</span></div>
+
+
+<div class="viewcode-block" id="outlier_detect"><a class="viewcode-back" href="../generated/explore.html#explore.outlier_detect">[docs]</a><span class="k">def</span> <span class="nf">outlier_detect</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;IQR&#39;</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">1.5</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    每列离群点统计</span>
+<span class="sd">        outlier detection by Mean and Standard Deviation Method.</span>
+<span class="sd">        If a value is a certain number(called threshold) of standard deviations away</span>
+<span class="sd">        from the mean, that data point is identified as an outlier. </span>
+<span class="sd">        The more extreme the outlier, the more the standard deviation is affected.</span>
+
+<span class="sd">        outlier detection by Interquartile Ranges Rule, also known as Tukey&#39;s test. </span>
+<span class="sd">        calculate the IQR ( 75th quantile - 25th quantile) </span>
+<span class="sd">        and the 25th 75th quantile. </span>
+<span class="sd">        Any value beyond is regarded as outliers.</span>
+<span class="sd">        upper bound = 75th quantile + （IQR * threshold）</span>
+<span class="sd">        lower bound = 25th quantile - （IQR * threshold）   </span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    data : df</span>
+<span class="sd">        pandas Dataframe</span>
+
+<span class="sd">    method : string</span>
+<span class="sd">        &#39;IQR&#39;,&#39;mean_std&#39;</span>
+
+<span class="sd">    threshold : float</span>
+<span class="sd">        for IQR Default is 1.5,extreme 3. for mean_std is 3.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    df_count : df</span>
+<span class="sd">        pandas Dataframe with outlier count and percent </span>
+
+<span class="sd">    outlier_df : df</span>
+<span class="sd">        outlier values of each columns</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;mean_std&#39;</span><span class="p">:</span>
+        <span class="n">upper_fence</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">+</span><span class="n">threshold</span><span class="o">*</span><span class="n">data</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
+        <span class="n">lower_fence</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">-</span><span class="n">threshold</span><span class="o">*</span><span class="n">data</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
+    <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;IQR&#39;</span><span class="p">:</span>
+        <span class="n">qt75</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">0.75</span><span class="p">)</span>
+        <span class="n">qt25</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">0.25</span><span class="p">)</span>
+        <span class="n">IQR</span> <span class="o">=</span> <span class="n">qt75</span><span class="o">-</span><span class="n">qt25</span>
+        <span class="n">upper_fence</span> <span class="o">=</span> <span class="n">qt75</span><span class="o">+</span><span class="n">threshold</span><span class="o">*</span><span class="n">IQR</span>
+        <span class="n">lower_fence</span> <span class="o">=</span> <span class="n">qt25</span><span class="o">-</span><span class="n">threshold</span><span class="o">*</span><span class="n">IQR</span>
+
+    <span class="n">upper_count</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">data</span> <span class="o">&gt;</span> <span class="n">upper_fence</span><span class="p">]</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
+    <span class="n">lower_count</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">data</span> <span class="o">&lt;</span> <span class="n">lower_fence</span><span class="p">]</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
+
+    <span class="n">outlier_count</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span>
+        <span class="p">[</span><span class="n">lower_fence</span><span class="p">,</span> <span class="n">upper_fence</span><span class="p">,</span> <span class="n">lower_count</span><span class="p">,</span> <span class="n">upper_count</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">outlier_count</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;lower_fence&#39;</span><span class="p">,</span>
+                             <span class="s1">&#39;upper_fence&#39;</span><span class="p">,</span> <span class="s1">&#39;lower_outlier&#39;</span><span class="p">,</span> <span class="s1">&#39;upper_outlier&#39;</span><span class="p">]</span>
+    <span class="n">outlier_count</span><span class="p">[</span><span class="s1">&#39;total_outlier&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">outlier_count</span><span class="p">[</span><span class="s1">&#39;lower_outlier&#39;</span><span class="p">]</span> <span class="o">+</span> \
+        <span class="n">outlier_count</span><span class="p">[</span><span class="s1">&#39;upper_outlier&#39;</span><span class="p">]</span>
+    <span class="n">outlier_count</span><span class="p">[</span><span class="s1">&#39;total_percent&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">outlier_count</span><span class="p">[</span><span class="s1">&#39;total_outlier&#39;</span><span class="p">]</span> <span class="o">/</span> \
+        <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="o">*</span><span class="mi">100</span>
+    <span class="n">df_count</span> <span class="o">=</span> <span class="n">outlier_count</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span>
+        <span class="n">by</span><span class="o">=</span><span class="s1">&#39;total_outlier&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+
+    <span class="n">outlier_df</span> <span class="o">=</span> <span class="n">data</span><span class="p">[(</span><span class="n">data</span> <span class="o">&gt;</span> <span class="n">upper_fence</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span>
+        <span class="n">data</span> <span class="o">&lt;</span> <span class="n">lower_fence</span><span class="p">)]</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">how</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">df_count</span><span class="p">,</span> <span class="n">outlier_df</span></div>
+
+
+<div class="viewcode-block" id="delete_extreme_outlier"><a class="viewcode-back" href="../generated/explore.html#explore.delete_extreme_outlier">[docs]</a><span class="k">def</span> <span class="nf">delete_extreme_outlier</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;IQR&#39;</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    |   delete extreme outlier</span>
+<span class="sd">    |   outlier detected by Mean and Standard Deviation Method.</span>
+<span class="sd">    |   If a value is a certain number(called threshold) of standard deviations away</span>
+<span class="sd">    |   from the mean, that data point is identified as an outlier. </span>
+<span class="sd">        The more extreme outlier, the more the standard deviation is affected.</span>
+
+<span class="sd">    Outlier detection by Interquartile Ranges Rule, also known as Tukey&#39;s test. </span>
+<span class="sd">    calculate the IQR ( 75th quantile - 25th quantile) </span>
+<span class="sd">    and the 25th 75th quantile. </span>
+<span class="sd">    Any value beyond is regarded as outliers.</span>
+<span class="sd">    upper_bound = 75th quantile + （IQR * threshold）</span>
+<span class="sd">    lower_bound = 25th quantile - （IQR * threshold）   </span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    data : df</span>
+<span class="sd">        pandas Dataframe</span>
+
+<span class="sd">    method : string</span>
+<span class="sd">        &#39;IQR&#39;,&#39;mean_std&#39;</span>
+
+<span class="sd">    threshold : float</span>
+<span class="sd">        for IQR Default is 1.5,extreme 3. for mean_std is 3.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    df : df</span>
+<span class="sd">        pandas Dataframe without extreme outlier </span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;mean_std&#39;</span><span class="p">:</span>
+        <span class="n">upper_fence</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">+</span><span class="n">threshold</span><span class="o">*</span><span class="n">data</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
+        <span class="n">lower_fence</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">-</span><span class="n">threshold</span><span class="o">*</span><span class="n">data</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
+    <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;IQR&#39;</span><span class="p">:</span>
+        <span class="n">qt75</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">0.75</span><span class="p">)</span>
+        <span class="n">qt25</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">0.25</span><span class="p">)</span>
+        <span class="n">IQR</span> <span class="o">=</span> <span class="n">qt75</span><span class="o">-</span><span class="n">qt25</span>
+        <span class="n">upper_fence</span> <span class="o">=</span> <span class="n">qt75</span><span class="o">+</span><span class="n">threshold</span><span class="o">*</span><span class="n">IQR</span>
+        <span class="n">lower_fence</span> <span class="o">=</span> <span class="n">qt25</span><span class="o">-</span><span class="n">threshold</span><span class="o">*</span><span class="n">IQR</span>
+
+    <span class="n">df</span> <span class="o">=</span> <span class="n">data</span><span class="p">[(</span><span class="n">data</span> <span class="o">&gt;</span> <span class="n">lower_fence</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">data</span> <span class="o">&lt;</span> <span class="n">upper_fence</span><span class="p">)]</span>
+    <span class="k">return</span> <span class="n">df</span></div>
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mltools 1.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">explore</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, Daniel SY Wang.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.0.2.
+    </div>
+  </body>
+</html>
