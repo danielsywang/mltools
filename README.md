@@ -1,4 +1,27 @@
-#  mltools
+# mltools
+
+[mltools](https://danielsywang.github.io/mltools/docs/build/html/generated/modules.html) is a set of machine learning toolkits extracted from actual projects. Its main goal is to speed up data exploration, data extraction, data cleaning conversion, and model training, allowing machine learning engineers to focus on data analysis and model selection and evaluation. The dependent packages are mainly: numpy, pandas, sklearn, seaborn, and the statistics part has a little scipy.stats, statsmodels.stats content.
+
+[mltools](https://danielsywang.github.io/mltools/docs/build/html/generated/modules.html) has the following 4 modules
+
+- [explore module](https://danielsywang.github.io/mltools/docs/build/html/generated/explore.html) : data exploration
+- [feature module](https://danielsywang.github.io/mltools/docs/build/html/generated/feature.html) : feature selection
+- [mlcluster module](https://danielsywang.github.io/mltools/docs/build/html/generated/mlcluster.html) : Select the best parameters and drawing for unlabeled clustering
+- [plot module](https://danielsywang.github.io/mltools/docs/build/html/generated/plot.html) : plotting
+
+# Download and install
+
+Download mltools package from https://github.com/danielsywang/mltools. The mltools directory under this package is the source code of the machine learning toolkits. The files in the docs directory are documents written with sphinx.
+
+Copy the source code to the project file directory or Anaconda's \Lib\site-packages (if Anaconda is installed), and then you can use [mltools](https://danielsywang.github.io/mltools/docs/build/html/generated/modules.html) .
+
+# mltools documentation
+
+[mltools](https://danielsywang.github.io/mltools/docs/build/html/generated/modules.html) document each functional module description see [Welcome to mltools 'documentation!](https://danielsywang.github.io/mltools/docs/build/html/index.html#) or [Welcome to mltools' documentation!](https://danielsywang.github.io/mltools/) , the after link is just a jump of the before link , exactly the same content.
+
+
+
+# mltools
 
 [mltools](https://danielsywang.github.io/mltools/docs/build/html/generated/modules.html)是从项目实战中提炼出来的一套机器学习工具包，其主要目标是加快数据探索、数据抽取、清洗转换、模型训练，让机器学习工程师专注数据分析和模型选择与评估。依赖的包主要有：numpy、pandas、sklearn、seaborn，统计部分有一点scipy.stats、 statsmodels.stats内容。
 
