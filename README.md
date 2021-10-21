@@ -11,7 +11,7 @@
 
 #   下载与安装
 
-从https://github.com/danielsywang/mltools下载mltools包，此包下面的mltools为机器学习工具包的源代码，docs目录下的文件是用sphinx写的文档。
+从https://github.com/danielsywang/mltools 下载mltools包，此包下面的mltools为机器学习工具包的源代码，docs目录下的文件是用sphinx写的文档。
 
 将源代码拷贝到项目文件目录或Anaconda的\Lib\site-packages（如果安装了Anaconda），就可以使用[mltools](https://danielsywang.github.io/mltools/docs/build/html/generated/modules.html)了。
 
