@@ -1810,7 +1810,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "开始时我们不知道有多少个聚类，假设选取聚类数n_clusters=2，选取GaussianMixture、.KMeans聚类，看看效果。从下图可以看出n_clusters应该设为3。"
+    "开始时我们不知道有多少个聚类，假设选取聚类数n_clusters=2，选取GaussianMixture、KMeans聚类，看看效果。从下图可以看出n_clusters应该设为3。"
    ]
   },
   {
