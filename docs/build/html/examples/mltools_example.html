@@ -1,0 +1,2441 @@
+<!doctype html>
+<html class="no-js" lang="zh-CN">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="prev" title="plot module" href="../mltools/plot.html" />
+
+    <meta name="generator" content="sphinx-4.0.2, furo 2021.10.09"/>
+        <title>1. mltools机器学习工具包应用示例 - mltools 1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=0254c309f5cadf746f1a613e7677379ac9c8cdcd" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?digest=16fb25fabf47304eee183a5e9af80b1ba98259b1" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  body[data-theme="dark"] {
+    --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+  }
+  @media (prefers-color-scheme: dark) {
+    body:not([data-theme="light"]) {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+  }
+</style></head>
+  <body>
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <path stroke="none" d="M0 0h24v24H0z" />
+      <line x1="4" y1="6" x2="20" y2="6" />
+      <line x1="10" y1="12" x2="20" y2="12" />
+      <line x1="6" y1="18" x2="20" y2="18" />
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-half" viewBox="0 0 24 24">
+    <title>Auto light/dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M13 12h5" />
+      <path d="M13 15h4" />
+      <path d="M13 18h1" />
+      <path d="M13 9h4" />
+      <path d="M13 6h1" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../index.html"><div class="brand">mltools 1.0 documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
+  
+  
+  <span class="sidebar-brand-text">mltools 1.0 documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
+  <input class="sidebar-search" placeholder=Search name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../mltools/modules.html">mltools</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../mltools/explore.html">explore module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mltools/feature.html">feature module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mltools/mlcluster.html">mlcluster module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mltools/plot.html">plot module</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">1. mltools机器学习工具包应用示例</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#加载库和数据">2. 加载库和数据</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#数据整理（探索）">3. 数据整理（探索）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#数据清洗及特征选择">4. 数据清洗及特征选择</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#特征转换与可视化">5. 特征转换与可视化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#模型选择及评估">6. 模型选择及评估</a></li>
+</ul>
+
+</div>
+</div>
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main">
+          
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt *,
+div.nbinput.container div.input_area pre,
+div.nboutput.container div.output_area pre,
+div.nbinput.container div.input_area .highlight,
+div.nboutput.container div.output_area .highlight {
+    border: none;
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+div.nbinput.container > div[class*=highlight],
+div.nboutput.container > div[class*=highlight] {
+    margin: 0;
+}
+
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt * {
+    background: none;
+}
+
+div.nboutput.container div.output_area .highlight,
+div.nboutput.container div.output_area pre {
+    background: unset;
+}
+
+div.nboutput.container div.output_area div.highlight {
+    color: unset;  /* override Pygments text color */
+}
+
+/* avoid gaps between output lines */
+div.nboutput.container div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput.container,
+div.nboutput.container {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput.container,
+    div.nboutput.container {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput.container {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast.container {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput.container div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput.container div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput.container div.prompt,
+div.nboutput.container div.prompt {
+    width: 4.5ex;
+    padding-top: 5px;
+    position: relative;
+    user-select: none;
+}
+
+div.nbinput.container div.prompt > div,
+div.nboutput.container div.prompt > div {
+    position: absolute;
+    right: 0;
+    margin-right: 0.3ex;
+}
+
+@media (max-width: 540px) {
+    div.nbinput.container div.prompt,
+    div.nboutput.container div.prompt {
+        width: unset;
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput.container div.prompt.empty {
+        padding: 0;
+    }
+
+    div.nbinput.container div.prompt > div,
+    div.nboutput.container div.prompt > div {
+        position: unset;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput.container div.prompt pre,
+div.nboutput.container div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput.container div.input_area,
+div.nboutput.container div.output_area {
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput.container div.input_area,
+    div.nboutput.container div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput.container div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    /*background: #f5f5f5;*/
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput.container div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput.container div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput.container div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+
+div.nbinput.container div.input_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight].math,
+div.nboutput.container div.output_area.rendered_html,
+div.nboutput.container div.output_area > div.output_javascript,
+div.nboutput.container div.output_area:not(.rendered_html) > img{
+    padding: 5px;
+    margin: 0;
+}
+
+/* fix copybtn overflow problem in chromium (needed for 'sphinx_copybutton') */
+div.nbinput.container div.input_area > div[class^='highlight'],
+div.nboutput.container div.output_area > div[class^='highlight']{
+    overflow-y: hidden;
+}
+
+/* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
+.prompt a.copybtn {
+    display: none;
+}
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+</style>
+<section id="mltools机器学习工具包应用示例">
+<h1><span class="section-number">1. </span>mltools机器学习工具包应用示例<a class="headerlink" href="#mltools机器学习工具包应用示例" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="https://danielsywang.github.io/mltools/docs/build/html/generated/modules.html">mltools</a>是从项目实战中提炼出来的一套机器学习工具包，其主要目标是加快数据探索、数据抽取、清洗转换、模型训练，让机器学习工程师专注数据分析和模型选择与评估。依赖的包主要有：numpy、pandas、sklearn、seaborn，统计部分有一点scipy.stats、 statsmodels.stats内容。</p>
+<p>示例部分内容为演示如果正确使用<a class="reference external" href="https://danielsywang.github.io/mltools/docs/build/html/generated/modules.html">mltools</a>机器学习工具包。</p>
+</section>
+<section id="加载库和数据">
+<h1><span class="section-number">2. </span>加载库和数据<a class="headerlink" href="#加载库和数据" title="Permalink to this headline">¶</a></h1>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># Data manipulation</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">mltools</span> <span class="kn">import</span> <span class="n">explore</span><span class="p">,</span><span class="n">feature</span><span class="p">,</span><span class="n">plot</span><span class="p">,</span><span class="n">mlcluster</span>
+<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">make_blobs</span>
+
+<span class="c1"># More Data Preprocessing &amp; Machine Learning</span>
+<span class="kn">from</span> <span class="nn">sklearn.experimental</span> <span class="kn">import</span> <span class="n">enable_iterative_imputer</span>
+<span class="kn">from</span> <span class="nn">sklearn.impute</span> <span class="kn">import</span> <span class="n">SimpleImputer</span><span class="p">,</span><span class="n">KNNImputer</span><span class="p">,</span><span class="n">IterativeImputer</span>
+<span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">cluster</span>
+<span class="c1">#from sklearn.pipeline import Pipeline</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LinearRegression</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">MinMaxScaler</span><span class="p">,</span><span class="n">StandardScaler</span><span class="p">,</span><span class="n">RobustScaler</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">PowerTransformer</span><span class="p">,</span><span class="n">QuantileTransformer</span>
+<span class="kn">from</span> <span class="nn">sklearn.mixture</span> <span class="kn">import</span> <span class="n">GaussianMixture</span>
+</pre></div>
+</div>
+</div>
+<section id="数据产生">
+<h2><span class="section-number">2.1. </span>数据产生<a class="headerlink" href="#数据产生" title="Permalink to this headline">¶</a></h2>
+<p>sklearn中的示例数据没有很好反映项目分析过程中的实际情况，因此自己产生数据尽量反映实际情况。选用make_classification产生样本数n_samples=500,特征数n_features=5的数据集，并将其转换成DataFrame格式。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">make_blobs</span><span class="p">(</span><span class="n">n_samples</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span><span class="n">n_features</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span><span class="n">random_state</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">data</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">add_prefix</span><span class="p">(</span><span class="s1">'col_'</span><span class="p">)</span>
+<span class="n">data</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<div class="table-wrapper"><table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th></th>
+<th>col_0</th>
+<th>col_1</th>
+<th>col_2</th>
+<th>col_3</th>
+<th>col_4</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>0</th>
+<td>-0.141771</td>
+<td>3.654010</td>
+<td>-5.561710</td>
+<td>6.749957</td>
+<td>-10.852914</td>
+</tr>
+<tr>
+<th>1</th>
+<td>0.153257</td>
+<td>5.490891</td>
+<td>-6.294500</td>
+<td>8.674817</td>
+<td>-9.285383</td>
+</tr>
+<tr>
+<th>2</th>
+<td>-0.533027</td>
+<td>3.889833</td>
+<td>-4.095322</td>
+<td>6.606851</td>
+<td>-9.233252</td>
+</tr>
+<tr>
+<th>3</th>
+<td>-8.643535</td>
+<td>-5.900542</td>
+<td>-1.883994</td>
+<td>-2.157399</td>
+<td>2.746535</td>
+</tr>
+<tr>
+<th>4</th>
+<td>-8.789110</td>
+<td>-6.779138</td>
+<td>-1.622573</td>
+<td>-2.022040</td>
+<td>0.066330</td>
+</tr>
+<tr>
+<th>...</th>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr>
+<th>495</th>
+<td>-0.031133</td>
+<td>3.026263</td>
+<td>-9.972184</td>
+<td>-2.564078</td>
+<td>-6.760700</td>
+</tr>
+<tr>
+<th>496</th>
+<td>-2.183581</td>
+<td>2.950700</td>
+<td>-9.002360</td>
+<td>-4.301135</td>
+<td>-8.456502</td>
+</tr>
+<tr>
+<th>497</th>
+<td>-7.936597</td>
+<td>-6.994555</td>
+<td>-3.890593</td>
+<td>-2.240007</td>
+<td>2.246613</td>
+</tr>
+<tr>
+<th>498</th>
+<td>-8.286480</td>
+<td>-6.189705</td>
+<td>-1.910791</td>
+<td>-2.266651</td>
+<td>-0.153064</td>
+</tr>
+<tr>
+<th>499</th>
+<td>-8.544259</td>
+<td>-6.542836</td>
+<td>-2.444902</td>
+<td>-1.410030</td>
+<td>1.076530</td>
+</tr>
+</tbody>
+</table></div>
+<p>500 rows × 5 columns</p>
+</div></div>
+</div>
+</section>
+<section id="加入Nan">
+<h2><span class="section-number">2.2. </span>加入Nan<a class="headerlink" href="#加入Nan" title="Permalink to this headline">¶</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1">#加入Nan</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">choice_list</span><span class="o">=</span><span class="p">[</span><span class="kc">False</span><span class="p">,</span><span class="kc">True</span><span class="p">]</span>
+<span class="n">p</span><span class="o">=</span><span class="p">[</span><span class="mf">0.98</span><span class="p">,</span><span class="mf">0.02</span><span class="p">]</span>
+<span class="n">mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">choice_list</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span><span class="n">p</span><span class="o">=</span><span class="n">p</span><span class="p">,</span><span class="n">replace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">mask</span><span class="p">(</span><span class="n">mask</span><span class="p">)</span>
+<span class="n">data</span><span class="p">[</span><span class="n">data</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)]</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<div class="table-wrapper"><table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th></th>
+<th>col_0</th>
+<th>col_1</th>
+<th>col_2</th>
+<th>col_3</th>
+<th>col_4</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>7</th>
+<td>-1.286570</td>
+<td>NaN</td>
+<td>-6.176012</td>
+<td>8.124907</td>
+<td>-10.120067</td>
+</tr>
+<tr>
+<th>16</th>
+<td>-7.883550</td>
+<td>-5.089507</td>
+<td>-2.704176</td>
+<td>NaN</td>
+<td>1.533754</td>
+</tr>
+<tr>
+<th>21</th>
+<td>-7.131833</td>
+<td>-5.573617</td>
+<td>NaN</td>
+<td>-1.741799</td>
+<td>-0.128209</td>
+</tr>
+<tr>
+<th>27</th>
+<td>-1.381526</td>
+<td>5.096522</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr>
+<th>29</th>
+<td>-1.937638</td>
+<td>NaN</td>
+<td>-9.959491</td>
+<td>-2.463272</td>
+<td>-4.467091</td>
+</tr>
+<tr>
+<th>46</th>
+<td>-7.750437</td>
+<td>-5.205726</td>
+<td>NaN</td>
+<td>-3.258757</td>
+<td>-0.313626</td>
+</tr>
+<tr>
+<th>56</th>
+<td>NaN</td>
+<td>-5.085142</td>
+<td>-3.509735</td>
+<td>-0.551581</td>
+<td>-0.409423</td>
+</tr>
+<tr>
+<th>73</th>
+<td>-6.963466</td>
+<td>-6.963849</td>
+<td>-3.420619</td>
+<td>NaN</td>
+<td>0.137765</td>
+</tr>
+<tr>
+<th>89</th>
+<td>-0.923590</td>
+<td>3.055128</td>
+<td>-8.873487</td>
+<td>-4.539752</td>
+<td>NaN</td>
+</tr>
+<tr>
+<th>90</th>
+<td>-8.934573</td>
+<td>NaN</td>
+<td>-3.604700</td>
+<td>-1.409286</td>
+<td>2.194878</td>
+</tr>
+<tr>
+<th>95</th>
+<td>0.833859</td>
+<td>NaN</td>
+<td>-7.228685</td>
+<td>7.163602</td>
+<td>-7.794042</td>
+</tr>
+<tr>
+<th>117</th>
+<td>-6.913303</td>
+<td>-7.804767</td>
+<td>NaN</td>
+<td>-2.670003</td>
+<td>1.175212</td>
+</tr>
+<tr>
+<th>127</th>
+<td>-7.618104</td>
+<td>-5.807176</td>
+<td>-1.887277</td>
+<td>NaN</td>
+<td>-0.398539</td>
+</tr>
+<tr>
+<th>132</th>
+<td>-0.408670</td>
+<td>3.963432</td>
+<td>-6.710602</td>
+<td>NaN</td>
+<td>-10.945749</td>
+</tr>
+<tr>
+<th>138</th>
+<td>-0.939700</td>
+<td>5.784000</td>
+<td>-9.912916</td>
+<td>-4.464145</td>
+<td>NaN</td>
+</tr>
+<tr>
+<th>139</th>
+<td>-0.203479</td>
+<td>4.152881</td>
+<td>-6.715668</td>
+<td>NaN</td>
+<td>-8.827473</td>
+</tr>
+<tr>
+<th>140</th>
+<td>-0.576282</td>
+<td>NaN</td>
+<td>-5.975531</td>
+<td>7.387683</td>
+<td>-10.071748</td>
+</tr>
+<tr>
+<th>160</th>
+<td>-8.328621</td>
+<td>-6.772762</td>
+<td>-2.714645</td>
+<td>-3.689514</td>
+<td>NaN</td>
+</tr>
+<tr>
+<th>164</th>
+<td>-0.584305</td>
+<td>4.802059</td>
+<td>-10.227054</td>
+<td>-4.497832</td>
+<td>NaN</td>
+</tr>
+<tr>
+<th>166</th>
+<td>-1.949085</td>
+<td>NaN</td>
+<td>-5.111942</td>
+<td>7.527439</td>
+<td>-10.178813</td>
+</tr>
+<tr>
+<th>175</th>
+<td>-1.731877</td>
+<td>NaN</td>
+<td>-5.210435</td>
+<td>9.771156</td>
+<td>-9.591718</td>
+</tr>
+<tr>
+<th>188</th>
+<td>-0.347004</td>
+<td>4.217912</td>
+<td>NaN</td>
+<td>8.964273</td>
+<td>-10.266166</td>
+</tr>
+<tr>
+<th>192</th>
+<td>NaN</td>
+<td>5.831704</td>
+<td>-6.950209</td>
+<td>6.876678</td>
+<td>-10.238876</td>
+</tr>
+<tr>
+<th>219</th>
+<td>-9.234538</td>
+<td>-7.610726</td>
+<td>-3.759727</td>
+<td>NaN</td>
+<td>1.507948</td>
+</tr>
+<tr>
+<th>221</th>
+<td>-0.903702</td>
+<td>NaN</td>
+<td>-6.410009</td>
+<td>8.215268</td>
+<td>-11.519422</td>
+</tr>
+<tr>
+<th>226</th>
+<td>-9.188071</td>
+<td>NaN</td>
+<td>-3.444390</td>
+<td>-2.188615</td>
+<td>NaN</td>
+</tr>
+<tr>
+<th>242</th>
+<td>-2.857065</td>
+<td>1.680626</td>
+<td>-8.593365</td>
+<td>-4.073770</td>
+<td>NaN</td>
+</tr>
+<tr>
+<th>251</th>
+<td>-9.074263</td>
+<td>-6.421705</td>
+<td>-2.793038</td>
+<td>NaN</td>
+<td>-0.936332</td>
+</tr>
+<tr>
+<th>265</th>
+<td>NaN</td>
+<td>-7.659325</td>
+<td>-1.195496</td>
+<td>-1.668099</td>
+<td>1.495399</td>
+</tr>
+<tr>
+<th>293</th>
+<td>-8.888966</td>
+<td>-6.142600</td>
+<td>-4.033103</td>
+<td>-1.893275</td>
+<td>NaN</td>
+</tr>
+<tr>
+<th>316</th>
+<td>-7.193460</td>
+<td>-7.067357</td>
+<td>NaN</td>
+<td>-2.906014</td>
+<td>2.840359</td>
+</tr>
+<tr>
+<th>346</th>
+<td>NaN</td>
+<td>5.371377</td>
+<td>-10.739167</td>
+<td>-2.634757</td>
+<td>-7.374552</td>
+</tr>
+<tr>
+<th>364</th>
+<td>-6.876723</td>
+<td>-7.914889</td>
+<td>NaN</td>
+<td>-1.589900</td>
+<td>2.075189</td>
+</tr>
+<tr>
+<th>373</th>
+<td>-3.176953</td>
+<td>NaN</td>
+<td>-5.125969</td>
+<td>8.706169</td>
+<td>-10.143616</td>
+</tr>
+<tr>
+<th>379</th>
+<td>NaN</td>
+<td>4.141529</td>
+<td>-8.890430</td>
+<td>-5.302085</td>
+<td>-6.473979</td>
+</tr>
+<tr>
+<th>381</th>
+<td>-8.301266</td>
+<td>-7.224314</td>
+<td>-4.448187</td>
+<td>NaN</td>
+<td>1.395000</td>
+</tr>
+<tr>
+<th>391</th>
+<td>-8.128794</td>
+<td>-8.077865</td>
+<td>-3.902213</td>
+<td>NaN</td>
+<td>1.371146</td>
+</tr>
+<tr>
+<th>395</th>
+<td>-9.424622</td>
+<td>-7.716436</td>
+<td>-3.994138</td>
+<td>-3.361358</td>
+<td>NaN</td>
+</tr>
+<tr>
+<th>397</th>
+<td>-0.614359</td>
+<td>5.416865</td>
+<td>NaN</td>
+<td>-3.235759</td>
+<td>-7.315587</td>
+</tr>
+<tr>
+<th>399</th>
+<td>-8.976534</td>
+<td>-6.099075</td>
+<td>NaN</td>
+<td>-2.172709</td>
+<td>1.261013</td>
+</tr>
+<tr>
+<th>402</th>
+<td>-0.192786</td>
+<td>NaN</td>
+<td>-8.981948</td>
+<td>-3.237669</td>
+<td>-5.332705</td>
+</tr>
+<tr>
+<th>421</th>
+<td>-0.885676</td>
+<td>NaN</td>
+<td>-9.750204</td>
+<td>-5.669639</td>
+<td>-6.477809</td>
+</tr>
+<tr>
+<th>443</th>
+<td>-1.351757</td>
+<td>NaN</td>
+<td>-8.470801</td>
+<td>-4.297299</td>
+<td>-8.402905</td>
+</tr>
+<tr>
+<th>449</th>
+<td>-7.586178</td>
+<td>-5.888475</td>
+<td>-1.585598</td>
+<td>NaN</td>
+<td>1.088758</td>
+</tr>
+<tr>
+<th>489</th>
+<td>-7.704753</td>
+<td>NaN</td>
+<td>-3.396437</td>
+<td>-1.353495</td>
+<td>2.916061</td>
+</tr>
+</tbody>
+</table></div>
+</div></div>
+</div>
+</section>
+<section id="加入重复数据">
+<h2><span class="section-number">2.3. </span>加入重复数据<a class="headerlink" href="#加入重复数据" title="Permalink to this headline">¶</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="sd">''' Repeat without index  '''</span>
+<span class="n">ds</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span><span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">data</span><span class="p">]</span><span class="o">+</span><span class="p">[</span><span class="n">ds</span><span class="p">]</span><span class="o">*</span><span class="mi">3</span><span class="p">,</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">data</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<div class="table-wrapper"><table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th></th>
+<th>col_0</th>
+<th>col_1</th>
+<th>col_2</th>
+<th>col_3</th>
+<th>col_4</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>0</th>
+<td>-0.141771</td>
+<td>3.654010</td>
+<td>-5.561710</td>
+<td>6.749957</td>
+<td>-10.852914</td>
+</tr>
+<tr>
+<th>1</th>
+<td>0.153257</td>
+<td>5.490891</td>
+<td>-6.294500</td>
+<td>8.674817</td>
+<td>-9.285383</td>
+</tr>
+<tr>
+<th>2</th>
+<td>-0.533027</td>
+<td>3.889833</td>
+<td>-4.095322</td>
+<td>6.606851</td>
+<td>-9.233252</td>
+</tr>
+<tr>
+<th>3</th>
+<td>-8.643535</td>
+<td>-5.900542</td>
+<td>-1.883994</td>
+<td>-2.157399</td>
+<td>2.746535</td>
+</tr>
+<tr>
+<th>4</th>
+<td>-8.789110</td>
+<td>-6.779138</td>
+<td>-1.622573</td>
+<td>-2.022040</td>
+<td>0.066330</td>
+</tr>
+<tr>
+<th>...</th>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr>
+<th>525</th>
+<td>-2.003885</td>
+<td>5.311449</td>
+<td>-9.693497</td>
+<td>-2.498029</td>
+<td>-7.332512</td>
+</tr>
+<tr>
+<th>526</th>
+<td>-7.193460</td>
+<td>-7.067357</td>
+<td>NaN</td>
+<td>-2.906014</td>
+<td>2.840359</td>
+</tr>
+<tr>
+<th>527</th>
+<td>-7.704753</td>
+<td>NaN</td>
+<td>-3.396437</td>
+<td>-1.353495</td>
+<td>2.916061</td>
+</tr>
+<tr>
+<th>528</th>
+<td>-8.731049</td>
+<td>-6.014554</td>
+<td>-3.033054</td>
+<td>-2.248544</td>
+<td>-0.737050</td>
+</tr>
+<tr>
+<th>529</th>
+<td>-1.722663</td>
+<td>4.089757</td>
+<td>-11.366473</td>
+<td>-5.031462</td>
+<td>-7.357258</td>
+</tr>
+</tbody>
+</table></div>
+<p>530 rows × 5 columns</p>
+</div></div>
+</div>
+</section>
+</section>
+<section id="数据整理（探索）">
+<h1><span class="section-number">3. </span>数据整理（探索）<a class="headerlink" href="#数据整理（探索）" title="Permalink to this headline">¶</a></h1>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">data</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;class 'pandas.core.frame.DataFrame'&gt;
+RangeIndex: 530 entries, 0 to 529
+Data columns (total 5 columns):
+ #   Column  Non-Null Count  Dtype
+---  ------  --------------  -----
+ 0   col_0   525 non-null    float64
+ 1   col_1   510 non-null    float64
+ 2   col_2   518 non-null    float64
+ 3   col_3   519 non-null    float64
+ 4   col_4   521 non-null    float64
+dtypes: float64(5)
+memory usage: 20.8 KB
+</pre></div></div>
+</div>
+<section id="空缺值分析">
+<h2><span class="section-number">3.1. </span>空缺值分析<a class="headerlink" href="#空缺值分析" title="Permalink to this headline">¶</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">explore</span><span class="o">.</span><span class="n">null_count</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<div class="table-wrapper"><table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th></th>
+<th>total_missing</th>
+<th>missing_percent</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>col_1</th>
+<td>20</td>
+<td>3.77</td>
+</tr>
+<tr>
+<th>col_2</th>
+<td>12</td>
+<td>2.26</td>
+</tr>
+<tr>
+<th>col_3</th>
+<td>11</td>
+<td>2.08</td>
+</tr>
+<tr>
+<th>col_4</th>
+<td>9</td>
+<td>1.70</td>
+</tr>
+<tr>
+<th>col_0</th>
+<td>5</td>
+<td>0.94</td>
+</tr>
+</tbody>
+</table></div>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">data</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+54
+</pre></div></div>
+</div>
+<p>本数据集共有530个样本，含有空值的样本为54个，占比为10.2%，可以考虑补充空缺数据。实际分析中是删除或补充或两种方法都用，要根据项目的具体情况决定。</p>
+</section>
+<section id="重复值分析">
+<h2><span class="section-number">3.2. </span>重复值分析<a class="headerlink" href="#重复值分析" title="Permalink to this headline">¶</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">data</span><span class="o">.</span><span class="n">duplicated</span><span class="p">()</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+False    500
+True      30
+dtype: int64
+</pre></div></div>
+</div>
+<p>本数据集共有530个样本，重复数据30条。实际分析中是删除或保留，要根据项目的具体情况决定。</p>
+</section>
+<section id="唯一值分析">
+<h2><span class="section-number">3.3. </span>唯一值分析<a class="headerlink" href="#唯一值分析" title="Permalink to this headline">¶</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">explore</span><span class="o">.</span><span class="n">unique_count</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<div class="table-wrapper"><table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th></th>
+<th>nunique</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table></div>
+</div></div>
+</div>
+<p>唯一值是某一列中只有一个值。当前数据集没有唯一值出现。实际分析中出现唯一值的列需要删除，因为这个属性对模型选择没有任何帮助。</p>
+</section>
+<section id="负值分析">
+<h2><span class="section-number">3.4. </span>负值分析<a class="headerlink" href="#负值分析" title="Permalink to this headline">¶</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">explore</span><span class="o">.</span><span class="n">negative_count</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<div class="table-wrapper"><table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th></th>
+<th>negative_count</th>
+<th>negative_percent</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>col_2</th>
+<td>518</td>
+<td>97.74</td>
+</tr>
+<tr>
+<th>col_0</th>
+<td>506</td>
+<td>95.47</td>
+</tr>
+<tr>
+<th>col_4</th>
+<td>387</td>
+<td>73.02</td>
+</tr>
+<tr>
+<th>col_3</th>
+<td>352</td>
+<td>66.42</td>
+</tr>
+<tr>
+<th>col_1</th>
+<td>176</td>
+<td>33.21</td>
+</tr>
+</tbody>
+</table></div>
+</div></div>
+</div>
+<p>当前数据集有负值，此处只是演示negative_count的用法。实际项目中某些列是不能出现负值的，负值意味着异常需要删除。</p>
+</section>
+<section id="异常数据分析">
+<h2><span class="section-number">3.5. </span>异常数据分析<a class="headerlink" href="#异常数据分析" title="Permalink to this headline">¶</a></h2>
+<p>异常值分析有两种方法：IQR和均值标准差方法，阈值可以任意设定。对IQR方法，通常设定method=‘IQR’, threshold=1.5；极端异常值分析threshold=3。均值标准差方法通常设定method=‘IQR’, threshold=3。 outlier_df表示各列异常值情况。异常值的处理在特征清洗与转换进行。</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1">#IQR探索</span>
+<span class="n">outlier_count</span><span class="p">,</span><span class="n">outlier_df</span><span class="o">=</span><span class="n">explore</span><span class="o">.</span><span class="n">outlier_detect</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="n">method</span><span class="o">=</span><span class="s1">'IQR'</span><span class="p">,</span><span class="n">threshold</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">outlier_count</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<div class="table-wrapper"><table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th></th>
+<th>lower_fence</th>
+<th>upper_fence</th>
+<th>lower_outlier</th>
+<th>upper_outlier</th>
+<th>total_outlier</th>
+<th>total_percent</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>col_0</th>
+<td>-16.91</td>
+<td>7.86</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0.0</td>
+</tr>
+<tr>
+<th>col_1</th>
+<td>-20.60</td>
+<td>19.24</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0.0</td>
+</tr>
+<tr>
+<th>col_2</th>
+<td>-17.83</td>
+<td>5.08</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0.0</td>
+</tr>
+<tr>
+<th>col_3</th>
+<td>-18.69</td>
+<td>22.18</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0.0</td>
+</tr>
+<tr>
+<th>col_4</th>
+<td>-22.27</td>
+<td>13.49</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0.0</td>
+</tr>
+</tbody>
+</table></div>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">outlier_df</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<div class="table-wrapper"><table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th></th>
+<th>col_0</th>
+<th>col_1</th>
+<th>col_2</th>
+<th>col_3</th>
+<th>col_4</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table></div>
+</div></div>
+</div>
+</section>
+<section id="可视化">
+<h2><span class="section-number">3.6. </span>可视化<a class="headerlink" href="#可视化" title="Permalink to this headline">¶</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">plot</span><span class="o">.</span><span class="n">hist_plot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span><span class="n">ncol</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span><span class="n">figsize_x</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/examples_mltools_example_30_0.png" src="../_images/examples_mltools_example_30_0.png"/>
+</div>
+</div>
+</section>
+</section>
+<section id="数据清洗及特征选择">
+<h1><span class="section-number">4. </span>数据清洗及特征选择<a class="headerlink" href="#数据清洗及特征选择" title="Permalink to this headline">¶</a></h1>
+<p>数据清洗比较简单，此处不讲。特征选择是本节的主要内容。</p>
+<p>这一部分的特征选择主要是解决特征之间的多重共线性问题，解决方法是VIF和Corr方法。</p>
+<section id="VIF特征选择">
+<h2><span class="section-number">4.1. </span>VIF特征选择<a class="headerlink" href="#VIF特征选择" title="Permalink to this headline">¶</a></h2>
+<p>VIF方法不能包含NaN值，因此需要处理。此处只是简单的删除，实际项目如何处理要根据具体情况再做决定。</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">df_notnull</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="o">~</span><span class="n">data</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)]</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">VIF</span><span class="o">=</span><span class="n">feature</span><span class="o">.</span><span class="n">get_VIF</span><span class="p">(</span><span class="n">df_notnull</span><span class="p">)</span>
+<span class="n">VIF</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<div class="table-wrapper"><table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th></th>
+<th>VIF</th>
+<th>Column</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>0</th>
+<td>4.841115</td>
+<td>col_3</td>
+</tr>
+<tr>
+<th>1</th>
+<td>10.261113</td>
+<td>col_0</td>
+</tr>
+<tr>
+<th>2</th>
+<td>12.944953</td>
+<td>col_1</td>
+</tr>
+<tr>
+<th>3</th>
+<td>24.882742</td>
+<td>col_2</td>
+</tr>
+<tr>
+<th>4</th>
+<td>26.979943</td>
+<td>col_4</td>
+</tr>
+</tbody>
+</table></div>
+</div></div>
+</div>
+<p>说明col_2、col_4列出现了高度相关，删除高度相关的列。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">feature</span><span class="o">.</span><span class="n">get_VIF</span><span class="p">(</span><span class="n">df_notnull</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">'col_2'</span><span class="p">,</span><span class="s1">'col_4'</span><span class="p">],</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<div class="table-wrapper"><table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th></th>
+<th>VIF</th>
+<th>Column</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>0</th>
+<td>1.095365</td>
+<td>col_3</td>
+</tr>
+<tr>
+<th>1</th>
+<td>1.308480</td>
+<td>col_0</td>
+</tr>
+<tr>
+<th>2</th>
+<td>1.410221</td>
+<td>col_1</td>
+</tr>
+</tbody>
+</table></div>
+</div></div>
+</div>
+<p>从上面VIF结果知道，col_0、col_1、col_3的VIF都小于5，选以上3列作为特征是合适的。</p>
+<p>实际项目中特征数量众多，需要综合考虑VIF、corr分析结果，与业务专家讨论确认特征！</p>
+</section>
+</section>
+<section id="特征转换与可视化">
+<h1><span class="section-number">5. </span>特征转换与可视化<a class="headerlink" href="#特征转换与可视化" title="Permalink to this headline">¶</a></h1>
+<p>将特征转换作为聚类参数，详细内容在模型选择与评估部分讨论</p>
+<section id="特征转换及其正态检验">
+<h2><span class="section-number">5.1. </span>特征转换及其正态检验<a class="headerlink" href="#特征转换及其正态检验" title="Permalink to this headline">¶</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="s1">'col_2'</span><span class="p">,</span><span class="s1">'col_4'</span><span class="p">],</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">trans_method_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'cbrt'</span><span class="p">,</span> <span class="s1">'reciprocal'</span><span class="p">,</span> <span class="s1">'square'</span><span class="p">,</span> <span class="s1">'cube'</span><span class="p">,</span> <span class="s1">'minmax'</span><span class="p">,</span> <span class="s1">'zscore'</span><span class="p">,</span> <span class="s1">'robust'</span><span class="p">,</span> <span class="s1">'quant'</span><span class="p">,</span> <span class="s1">'yeo'</span><span class="p">]</span>
+<span class="n">feature</span><span class="o">.</span><span class="n">transformer</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="n">trans_method_list</span><span class="o">=</span><span class="n">trans_method_list</span><span class="p">,</span><span class="n">test_method</span><span class="o">=</span><span class="s1">'ks'</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<div class="table-wrapper"><table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th></th>
+<th>orginal</th>
+<th>cbrt</th>
+<th>reciprocal</th>
+<th>square</th>
+<th>cube</th>
+<th>minmax</th>
+<th>zscore</th>
+<th>robust</th>
+<th>quant</th>
+<th>yeo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>col_0</th>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>Normal</td>
+<td>-</td>
+</tr>
+<tr>
+<th>col_1</th>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>Normal</td>
+<td>-</td>
+</tr>
+<tr>
+<th>col_3</th>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>Normal</td>
+<td>-</td>
+</tr>
+</tbody>
+</table></div>
+</div></div>
+</div>
+</section>
+<section id="特征转换可视化">
+<h2><span class="section-number">5.2. </span>特征转换可视化<a class="headerlink" href="#特征转换可视化" title="Permalink to this headline">¶</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">trans_method_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'cbrt'</span><span class="p">,</span> <span class="s1">'reciprocal'</span><span class="p">,</span> <span class="s1">'square'</span><span class="p">,</span> <span class="s1">'cube'</span><span class="p">,</span> <span class="s1">'minmax'</span><span class="p">,</span> <span class="s1">'zscore'</span><span class="p">,</span> <span class="s1">'robust'</span><span class="p">,</span> <span class="s1">'quant'</span><span class="p">,</span> <span class="s1">'yeo'</span><span class="p">]</span>
+<span class="n">plot</span><span class="o">.</span><span class="n">trans_plot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span><span class="n">trans_method_list</span><span class="o">=</span><span class="n">trans_method_list</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+0
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/examples_mltools_example_47_1.png" src="../_images/examples_mltools_example_47_1.png"/>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/examples_mltools_example_47_2.png" src="../_images/examples_mltools_example_47_2.png"/>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/examples_mltools_example_47_3.png" src="../_images/examples_mltools_example_47_3.png"/>
+</div>
+</div>
+</section>
+</section>
+<section id="模型选择及评估">
+<h1><span class="section-number">6. </span>模型选择及评估<a class="headerlink" href="#模型选择及评估" title="Permalink to this headline">¶</a></h1>
+<p>mlcluster.ClusterScorePlot继承了pipeline,参数定义中的cls为pipeline的steps，本例中清洗、转换、聚类作为参数设置。 mlcluster.ClusterScorePlot还可以设置清洗、转换、聚类方法的参数，对于复杂项目可以构建更复杂的管道。</p>
+<section id="模型初评">
+<h2><span class="section-number">6.1. </span>模型初评<a class="headerlink" href="#模型初评" title="Permalink to this headline">¶</a></h2>
+<p>开始时我们不知道有多少个聚类，假设选取聚类数n_clusters=2，选取GaussianMixture、.KMeans聚类，看看效果。从下图可以看出n_clusters应该设为3。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1">#setup steps:</span>
+<span class="n">n_clusters</span><span class="o">=</span><span class="mi">2</span>
+<span class="bp">cls</span> <span class="o">=</span><span class="p">[(</span><span class="s1">'imputer'</span><span class="p">,</span> <span class="n">SimpleImputer</span><span class="p">(</span><span class="n">strategy</span><span class="o">=</span><span class="s1">'median'</span><span class="p">)),</span>
+      <span class="p">(</span><span class="s1">'scaler'</span><span class="p">,</span> <span class="n">StandardScaler</span><span class="p">()),</span>
+      <span class="p">(</span><span class="s1">'cluster'</span><span class="p">,</span><span class="n">cluster</span><span class="o">.</span><span class="n">AgglomerativeClustering</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="n">n_clusters</span><span class="p">))]</span>
+<span class="c1">#setup param_grid</span>
+<span class="n">param_grid</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span> <span class="s1">'imputer'</span><span class="p">:</span> <span class="p">[</span><span class="kc">None</span><span class="p">],</span>
+     <span class="s1">'scaler'</span><span class="p">:</span> <span class="p">[</span><span class="kc">None</span><span class="p">],</span>
+     <span class="s1">'cluster'</span><span class="p">:[</span><span class="n">cluster</span><span class="o">.</span><span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="n">n_clusters</span><span class="p">),</span>
+                <span class="n">GaussianMixture</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="n">n_clusters</span><span class="p">)]}</span>
+    <span class="p">]</span>
+<span class="c1">#setup scoring:</span>
+<span class="n">scoring</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'da'</span><span class="p">,</span> <span class="s1">'si'</span><span class="p">,</span> <span class="s1">'ca'</span><span class="p">]</span>
+<span class="n">clustersearch</span><span class="o">=</span><span class="n">mlcluster</span><span class="o">.</span><span class="n">ClusterScorePlot</span><span class="p">(</span><span class="n">steps</span><span class="o">=</span><span class="bp">cls</span><span class="p">,</span><span class="n">param_grid</span><span class="o">=</span><span class="n">param_grid</span><span class="p">,</span><span class="n">scoring</span><span class="o">=</span><span class="n">scoring</span><span class="p">)</span>
+<span class="n">clustersearch</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="n">ncol</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/examples_mltools_example_52_0.png" src="../_images/examples_mltools_example_52_0.png"/>
+</div>
+</div>
+</section>
+<section id="模型调参">
+<h2><span class="section-number">6.2. </span>模型调参<a class="headerlink" href="#模型调参" title="Permalink to this headline">¶</a></h2>
+<section id="参数定义">
+<h3><span class="section-number">6.2.1. </span>参数定义<a class="headerlink" href="#参数定义" title="Permalink to this headline">¶</a></h3>
+<p>imputer、scaler、cluster三个阶段的任务以列表的方式在cls中定义，其参数在param_grid中以字典的形式定义，聚类评价在scoring中定义。</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1">#setup steps:</span>
+<span class="n">n_clusters</span><span class="o">=</span><span class="mi">3</span>
+<span class="bp">cls</span> <span class="o">=</span><span class="p">[(</span><span class="s1">'imputer'</span><span class="p">,</span> <span class="n">SimpleImputer</span><span class="p">(</span><span class="n">strategy</span><span class="o">=</span><span class="s1">'median'</span><span class="p">)),</span>
+      <span class="p">(</span><span class="s1">'scaler'</span><span class="p">,</span> <span class="n">StandardScaler</span><span class="p">()),</span>
+      <span class="p">(</span><span class="s1">'cluster'</span><span class="p">,</span><span class="n">cluster</span><span class="o">.</span><span class="n">AgglomerativeClustering</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="n">n_clusters</span><span class="p">))]</span>
+<span class="c1">#setup param_grid</span>
+<span class="n">lr</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span>
+<span class="n">imp</span> <span class="o">=</span> <span class="n">IterativeImputer</span><span class="p">(</span><span class="n">estimator</span><span class="o">=</span><span class="n">lr</span><span class="p">,</span><span class="n">missing_values</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">imputation_order</span><span class="o">=</span><span class="s1">'roman'</span><span class="p">,</span><span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">imp1</span> <span class="o">=</span> <span class="n">IterativeImputer</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">knn</span> <span class="o">=</span> <span class="n">KNNImputer</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">add_indicator</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">param_grid</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span> <span class="s1">'imputer'</span><span class="p">:</span> <span class="p">[</span><span class="n">SimpleImputer</span><span class="p">(</span><span class="n">strategy</span><span class="o">=</span><span class="s1">'median'</span><span class="p">),</span><span class="n">imp</span><span class="p">,</span><span class="n">imp1</span><span class="p">,</span><span class="n">knn</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span>
+     <span class="s1">'scaler'</span><span class="p">:</span> <span class="p">[</span><span class="n">MinMaxScaler</span><span class="p">(),</span><span class="n">StandardScaler</span><span class="p">(),</span><span class="n">RobustScaler</span><span class="p">(),</span><span class="n">PowerTransformer</span><span class="p">(),</span><span class="kc">None</span><span class="p">],</span>
+     <span class="s1">'cluster'</span><span class="p">:[</span><span class="n">cluster</span><span class="o">.</span><span class="n">AgglomerativeClustering</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="n">n_clusters</span><span class="p">),</span>
+                 <span class="n">cluster</span><span class="o">.</span><span class="n">DBSCAN</span><span class="p">(</span><span class="n">eps</span><span class="o">=</span><span class="mf">0.30</span><span class="p">,</span> <span class="n">min_samples</span><span class="o">=</span><span class="mi">10</span><span class="p">),</span>
+                <span class="n">cluster</span><span class="o">.</span><span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="n">n_clusters</span><span class="p">),</span>
+                <span class="n">GaussianMixture</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="n">n_clusters</span><span class="p">)]},</span>
+
+    <span class="p">{</span> <span class="s1">'imputer'</span><span class="p">:</span> <span class="p">[</span><span class="n">SimpleImputer</span><span class="p">(</span><span class="n">strategy</span><span class="o">=</span><span class="s1">'median'</span><span class="p">),</span><span class="n">imp</span><span class="p">,</span><span class="n">imp1</span><span class="p">,</span><span class="n">knn</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span>
+     <span class="s1">'scaler'</span><span class="p">:</span> <span class="p">[</span><span class="n">QuantileTransformer</span><span class="p">(</span><span class="n">n_quantiles</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span><span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)],</span>
+     <span class="s1">'cluster'</span><span class="p">:[</span><span class="n">cluster</span><span class="o">.</span><span class="n">AgglomerativeClustering</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="n">n_clusters</span><span class="p">),</span>
+                 <span class="n">cluster</span><span class="o">.</span><span class="n">DBSCAN</span><span class="p">(</span><span class="n">eps</span><span class="o">=</span><span class="mf">0.30</span><span class="p">,</span> <span class="n">min_samples</span><span class="o">=</span><span class="mi">10</span><span class="p">),</span>
+                <span class="n">cluster</span><span class="o">.</span><span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="n">n_clusters</span><span class="p">),</span>
+                <span class="n">GaussianMixture</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="n">n_clusters</span><span class="p">)],</span>
+    <span class="s1">'scaler__output_distribution'</span><span class="p">:[</span><span class="s1">'uniform'</span><span class="p">,</span> <span class="s1">'normal'</span><span class="p">]}]</span>
+<span class="c1">#setup scoring:</span>
+<span class="n">scoring</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'da'</span><span class="p">,</span> <span class="s1">'si'</span><span class="p">,</span> <span class="s1">'ca'</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="参数网格搜索">
+<h3><span class="section-number">6.2.2. </span>参数网格搜索<a class="headerlink" href="#参数网格搜索" title="Permalink to this headline">¶</a></h3>
+<p>通过参数网格搜索得到最佳参数</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">clustersearch</span><span class="o">=</span><span class="n">mlcluster</span><span class="o">.</span><span class="n">ClusterScorePlot</span><span class="p">(</span><span class="n">steps</span><span class="o">=</span><span class="bp">cls</span><span class="p">,</span><span class="n">param_grid</span><span class="o">=</span><span class="n">param_grid</span><span class="p">,</span><span class="n">scoring</span><span class="o">=</span><span class="n">scoring</span><span class="p">)</span>
+<span class="n">df_score</span><span class="o">=</span><span class="n">clustersearch</span><span class="o">.</span><span class="n">get_score</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+<span class="n">df_best_score</span><span class="o">=</span><span class="n">clustersearch</span><span class="o">.</span><span class="n">get_best_score</span><span class="p">(</span><span class="n">df_score</span><span class="p">,</span><span class="n">n_best_score</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">'display.max_rows'</span><span class="p">,</span><span class="mi">200</span><span class="p">)</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">'display.max_colwidth'</span><span class="p">,</span><span class="mi">200</span><span class="p">)</span>
+<span class="n">df_best_score</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[IterativeImputer] Completing matrix with shape (530, 3)
+[IterativeImputer] Ending imputation round 1/10, elapsed time 0.02
+[IterativeImputer] Change: 7.620284332034443, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Ending imputation round 2/10, elapsed time 0.02
+[IterativeImputer] Change: 0.11316669398578494, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Ending imputation round 3/10, elapsed time 0.02
+[IterativeImputer] Change: 0.00012243243720222452, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Early stopping criterion reached.
+[IterativeImputer] Completing matrix with shape (530, 3)
+[IterativeImputer] Ending imputation round 1/10, elapsed time 0.00
+[IterativeImputer] Change: 7.620284332034443, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Ending imputation round 2/10, elapsed time 0.00
+[IterativeImputer] Change: 0.11316669398578494, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Ending imputation round 3/10, elapsed time 0.01
+[IterativeImputer] Change: 0.00012243243720222452, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Early stopping criterion reached.
+[IterativeImputer] Completing matrix with shape (530, 3)
+[IterativeImputer] Ending imputation round 1/10, elapsed time 0.00
+[IterativeImputer] Change: 7.620284332034443, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Ending imputation round 2/10, elapsed time 0.00
+[IterativeImputer] Change: 0.11316669398578494, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Ending imputation round 3/10, elapsed time 0.01
+[IterativeImputer] Change: 0.00012243243720222452, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Early stopping criterion reached.
+[IterativeImputer] Completing matrix with shape (530, 3)
+[IterativeImputer] Ending imputation round 1/10, elapsed time 0.00
+[IterativeImputer] Change: 7.620284332034443, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Ending imputation round 2/10, elapsed time 0.00
+[IterativeImputer] Change: 0.11316669398578494, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Ending imputation round 3/10, elapsed time 0.01
+[IterativeImputer] Change: 0.00012243243720222452, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Early stopping criterion reached.
+[IterativeImputer] Completing matrix with shape (530, 3)
+[IterativeImputer] Ending imputation round 1/10, elapsed time 0.00
+[IterativeImputer] Change: 7.620284332034443, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Ending imputation round 2/10, elapsed time 0.00
+[IterativeImputer] Change: 0.11316669398578494, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Ending imputation round 3/10, elapsed time 0.01
+[IterativeImputer] Change: 0.00012243243720222452, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Early stopping criterion reached.
+[IterativeImputer] Completing matrix with shape (530, 3)
+[IterativeImputer] Ending imputation round 1/10, elapsed time 0.00
+[IterativeImputer] Change: 7.620284332034443, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Ending imputation round 2/10, elapsed time 0.00
+[IterativeImputer] Change: 0.11316669398578494, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Ending imputation round 3/10, elapsed time 0.01
+[IterativeImputer] Change: 0.00012243243720222452, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Early stopping criterion reached.
+[IterativeImputer] Completing matrix with shape (530, 3)
+[IterativeImputer] Ending imputation round 1/10, elapsed time 0.00
+[IterativeImputer] Change: 7.620284332034443, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Ending imputation round 2/10, elapsed time 0.00
+[IterativeImputer] Change: 0.11316669398578494, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Ending imputation round 3/10, elapsed time 0.01
+[IterativeImputer] Change: 0.00012243243720222452, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Early stopping criterion reached.
+[IterativeImputer] Completing matrix with shape (530, 3)
+[IterativeImputer] Ending imputation round 1/10, elapsed time 0.00
+[IterativeImputer] Change: 7.620284332034443, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Ending imputation round 2/10, elapsed time 0.00
+[IterativeImputer] Change: 0.11316669398578494, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Ending imputation round 3/10, elapsed time 0.01
+[IterativeImputer] Change: 0.00012243243720222452, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Early stopping criterion reached.
+[IterativeImputer] Completing matrix with shape (530, 3)
+[IterativeImputer] Ending imputation round 1/10, elapsed time 0.00
+[IterativeImputer] Change: 7.620284332034443, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Ending imputation round 2/10, elapsed time 0.01
+[IterativeImputer] Change: 0.11316669398578494, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Ending imputation round 3/10, elapsed time 0.01
+[IterativeImputer] Change: 0.00012243243720222452, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Early stopping criterion reached.
+[IterativeImputer] Completing matrix with shape (530, 3)
+[IterativeImputer] Ending imputation round 1/10, elapsed time 0.00
+[IterativeImputer] Change: 7.620284332034443, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Ending imputation round 2/10, elapsed time 0.00
+[IterativeImputer] Change: 0.11316669398578494, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Ending imputation round 3/10, elapsed time 0.01
+[IterativeImputer] Change: 0.00012243243720222452, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Early stopping criterion reached.
+[IterativeImputer] Completing matrix with shape (530, 3)
+[IterativeImputer] Ending imputation round 1/10, elapsed time 0.00
+[IterativeImputer] Change: 7.620284332034443, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Ending imputation round 2/10, elapsed time 0.00
+[IterativeImputer] Change: 0.11316669398578494, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Ending imputation round 3/10, elapsed time 0.01
+[IterativeImputer] Change: 0.00012243243720222452, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Early stopping criterion reached.
+[IterativeImputer] Completing matrix with shape (530, 3)
+[IterativeImputer] Ending imputation round 1/10, elapsed time 0.00
+[IterativeImputer] Change: 7.620284332034443, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Ending imputation round 2/10, elapsed time 0.00
+[IterativeImputer] Change: 0.11316669398578494, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Ending imputation round 3/10, elapsed time 0.01
+[IterativeImputer] Change: 0.00012243243720222452, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Early stopping criterion reached.
+[IterativeImputer] Completing matrix with shape (530, 3)
+[IterativeImputer] Ending imputation round 1/10, elapsed time 0.00
+[IterativeImputer] Change: 7.620284332034443, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Ending imputation round 2/10, elapsed time 0.00
+[IterativeImputer] Change: 0.11316669398578494, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Ending imputation round 3/10, elapsed time 0.01
+[IterativeImputer] Change: 0.00012243243720222452, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Early stopping criterion reached.
+[IterativeImputer] Completing matrix with shape (530, 3)
+[IterativeImputer] Ending imputation round 1/10, elapsed time 0.00
+[IterativeImputer] Change: 7.620284332034443, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Ending imputation round 2/10, elapsed time 0.00
+[IterativeImputer] Change: 0.11316669398578494, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Ending imputation round 3/10, elapsed time 0.01
+[IterativeImputer] Change: 0.00012243243720222452, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Early stopping criterion reached.
+[IterativeImputer] Completing matrix with shape (530, 3)
+[IterativeImputer] Ending imputation round 1/10, elapsed time 0.00
+[IterativeImputer] Change: 7.620284332034443, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Ending imputation round 2/10, elapsed time 0.00
+[IterativeImputer] Change: 0.11316669398578494, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Ending imputation round 3/10, elapsed time 0.01
+[IterativeImputer] Change: 0.00012243243720222452, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Early stopping criterion reached.
+[IterativeImputer] Completing matrix with shape (530, 3)
+[IterativeImputer] Ending imputation round 1/10, elapsed time 0.00
+[IterativeImputer] Change: 7.620284332034443, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Ending imputation round 2/10, elapsed time 0.00
+[IterativeImputer] Change: 0.11316669398578494, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Ending imputation round 3/10, elapsed time 0.01
+[IterativeImputer] Change: 0.00012243243720222452, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Early stopping criterion reached.
+[IterativeImputer] Completing matrix with shape (530, 3)
+[IterativeImputer] Ending imputation round 1/10, elapsed time 0.00
+[IterativeImputer] Change: 7.620284332034443, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Ending imputation round 2/10, elapsed time 0.00
+[IterativeImputer] Change: 0.11316669398578494, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Ending imputation round 3/10, elapsed time 0.01
+[IterativeImputer] Change: 0.00012243243720222452, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Early stopping criterion reached.
+[IterativeImputer] Completing matrix with shape (530, 3)
+[IterativeImputer] Ending imputation round 1/10, elapsed time 0.00
+[IterativeImputer] Change: 7.620284332034443, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Ending imputation round 2/10, elapsed time 0.00
+[IterativeImputer] Change: 0.11316669398578494, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Ending imputation round 3/10, elapsed time 0.01
+[IterativeImputer] Change: 0.00012243243720222452, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Early stopping criterion reached.
+[IterativeImputer] Completing matrix with shape (530, 3)
+[IterativeImputer] Ending imputation round 1/10, elapsed time 0.00
+[IterativeImputer] Change: 7.620284332034443, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Ending imputation round 2/10, elapsed time 0.00
+[IterativeImputer] Change: 0.11316669398578494, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Ending imputation round 3/10, elapsed time 0.01
+[IterativeImputer] Change: 0.00012243243720222452, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Early stopping criterion reached.
+[IterativeImputer] Completing matrix with shape (530, 3)
+[IterativeImputer] Ending imputation round 1/10, elapsed time 0.00
+[IterativeImputer] Change: 7.620284332034443, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Ending imputation round 2/10, elapsed time 0.00
+[IterativeImputer] Change: 0.11316669398578494, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Ending imputation round 3/10, elapsed time 0.01
+[IterativeImputer] Change: 0.00012243243720222452, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Early stopping criterion reached.
+[IterativeImputer] Completing matrix with shape (530, 3)
+[IterativeImputer] Ending imputation round 1/10, elapsed time 0.00
+[IterativeImputer] Change: 7.620284332034443, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Ending imputation round 2/10, elapsed time 0.00
+[IterativeImputer] Change: 0.11316669398578494, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Ending imputation round 3/10, elapsed time 0.01
+[IterativeImputer] Change: 0.00012243243720222452, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Early stopping criterion reached.
+[IterativeImputer] Completing matrix with shape (530, 3)
+[IterativeImputer] Ending imputation round 1/10, elapsed time 0.00
+[IterativeImputer] Change: 7.620284332034443, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Ending imputation round 2/10, elapsed time 0.00
+[IterativeImputer] Change: 0.11316669398578494, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Ending imputation round 3/10, elapsed time 0.01
+[IterativeImputer] Change: 0.00012243243720222452, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Early stopping criterion reached.
+[IterativeImputer] Completing matrix with shape (530, 3)
+[IterativeImputer] Ending imputation round 1/10, elapsed time 0.00
+[IterativeImputer] Change: 7.620284332034443, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Ending imputation round 2/10, elapsed time 0.00
+[IterativeImputer] Change: 0.11316669398578494, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Ending imputation round 3/10, elapsed time 0.01
+[IterativeImputer] Change: 0.00012243243720222452, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Early stopping criterion reached.
+[IterativeImputer] Completing matrix with shape (530, 3)
+[IterativeImputer] Ending imputation round 1/10, elapsed time 0.00
+[IterativeImputer] Change: 7.620284332034443, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Ending imputation round 2/10, elapsed time 0.00
+[IterativeImputer] Change: 0.11316669398578494, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Ending imputation round 3/10, elapsed time 0.01
+[IterativeImputer] Change: 0.00012243243720222452, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Early stopping criterion reached.
+[IterativeImputer] Completing matrix with shape (530, 3)
+[IterativeImputer] Ending imputation round 1/10, elapsed time 0.00
+[IterativeImputer] Change: 7.620284332034443, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Ending imputation round 2/10, elapsed time 0.00
+[IterativeImputer] Change: 0.11316669398578494, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Ending imputation round 3/10, elapsed time 0.01
+[IterativeImputer] Change: 0.00012243243720222452, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Early stopping criterion reached.
+[IterativeImputer] Completing matrix with shape (530, 3)
+[IterativeImputer] Ending imputation round 1/10, elapsed time 0.00
+[IterativeImputer] Change: 7.620284332034443, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Ending imputation round 2/10, elapsed time 0.00
+[IterativeImputer] Change: 0.11316669398578494, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Ending imputation round 3/10, elapsed time 0.01
+[IterativeImputer] Change: 0.00012243243720222452, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Early stopping criterion reached.
+[IterativeImputer] Completing matrix with shape (530, 3)
+[IterativeImputer] Ending imputation round 1/10, elapsed time 0.00
+[IterativeImputer] Change: 7.620284332034443, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Ending imputation round 2/10, elapsed time 0.00
+[IterativeImputer] Change: 0.11316669398578494, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Ending imputation round 3/10, elapsed time 0.01
+[IterativeImputer] Change: 0.00012243243720222452, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Early stopping criterion reached.
+[IterativeImputer] Completing matrix with shape (530, 3)
+[IterativeImputer] Ending imputation round 1/10, elapsed time 0.00
+[IterativeImputer] Change: 7.620284332034443, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Ending imputation round 2/10, elapsed time 0.00
+[IterativeImputer] Change: 0.11316669398578494, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Ending imputation round 3/10, elapsed time 0.01
+[IterativeImputer] Change: 0.00012243243720222452, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Early stopping criterion reached.
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<div class="table-wrapper"><table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th></th>
+<th>param</th>
+<th>da</th>
+<th>si</th>
+<th>ca</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>0</th>
+<td>{'cluster': AgglomerativeClustering(n_clusters=3), 'imputer': KNNImputer(add_indicator=True, n_neighbors=2), 'scaler': None}</td>
+<td>0.266248</td>
+<td>0.813408</td>
+<td>5384.130887</td>
+</tr>
+<tr>
+<th>1</th>
+<td>{'cluster': AgglomerativeClustering(n_clusters=3), 'imputer': None, 'scaler': None}</td>
+<td>0.263954</td>
+<td>0.814534</td>
+<td>5035.913689</td>
+</tr>
+<tr>
+<th>2</th>
+<td>{'cluster': KMeans(n_clusters=3), 'imputer': IterativeImputer(estimator=LinearRegression(), imputation_order='roman',
+                 random_state=0, verbose=2), 'scaler': None}</td>
+<td>0.270683</td>
+<td>0.809068</td>
+<td>5133.544989</td>
+</tr>
+<tr>
+<th>3</th>
+<td>{'cluster': KMeans(n_clusters=3), 'imputer': IterativeImputer(random_state=0), 'scaler': None}</td>
+<td>0.270805</td>
+<td>0.808884</td>
+<td>5123.920033</td>
+</tr>
+<tr>
+<th>4</th>
+<td>{'cluster': KMeans(n_clusters=3), 'imputer': KNNImputer(add_indicator=True, n_neighbors=2), 'scaler': None}</td>
+<td>0.266248</td>
+<td>0.813408</td>
+<td>5384.130887</td>
+</tr>
+<tr>
+<th>5</th>
+<td>{'cluster': KMeans(n_clusters=3), 'imputer': None, 'scaler': None}</td>
+<td>0.263954</td>
+<td>0.814534</td>
+<td>5035.913689</td>
+</tr>
+<tr>
+<th>6</th>
+<td>{'cluster': GaussianMixture(n_components=3), 'imputer': KNNImputer(add_indicator=True, n_neighbors=2), 'scaler': None}</td>
+<td>0.266248</td>
+<td>0.813408</td>
+<td>5384.130887</td>
+</tr>
+<tr>
+<th>7</th>
+<td>{'cluster': GaussianMixture(n_components=3), 'imputer': None, 'scaler': None}</td>
+<td>0.263954</td>
+<td>0.814534</td>
+<td>5035.913689</td>
+</tr>
+</tbody>
+</table></div>
+</div></div>
+</div>
+</section>
+<section id="根据最佳参数绘图">
+<h3><span class="section-number">6.2.3. </span>根据最佳参数绘图<a class="headerlink" href="#根据最佳参数绘图" title="Permalink to this headline">¶</a></h3>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1">#setup param_grid</span>
+<span class="n">param_grid</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">df_best_score</span><span class="p">[</span><span class="s1">'param'</span><span class="p">])</span>
+
+<span class="n">clustersearch</span><span class="o">=</span><span class="n">mlcluster</span><span class="o">.</span><span class="n">ClusterScorePlot</span><span class="p">(</span><span class="n">steps</span><span class="o">=</span><span class="bp">cls</span><span class="p">,</span><span class="n">param_grid</span><span class="o">=</span><span class="n">param_grid</span><span class="p">,</span><span class="n">scoring</span><span class="o">=</span><span class="n">scoring</span><span class="p">)</span>
+<span class="n">clustersearch</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="n">param_type</span><span class="o">=</span><span class="s1">''</span><span class="p">,</span><span class="n">ncol</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[IterativeImputer] Completing matrix with shape (530, 3)
+[IterativeImputer] Ending imputation round 1/10, elapsed time 0.00
+[IterativeImputer] Change: 7.620284332034443, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Ending imputation round 2/10, elapsed time 0.00
+[IterativeImputer] Change: 0.11316669398578494, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Ending imputation round 3/10, elapsed time 0.01
+[IterativeImputer] Change: 0.00012243243720222452, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Early stopping criterion reached.
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/examples_mltools_example_59_1.png" src="../_images/examples_mltools_example_59_1.png"/>
+</div>
+</div>
+</section>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          
+          <a class="prev-page" href="../mltools/plot.html">
+              <svg><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">plot module</div>
+                
+              </div>
+            </a>
+        </div>
+
+        <div class="related-information">
+              Copyright &#169; 2021, Daniel SY Wang |
+            Built with <a href="https://www.sphinx-doc.org/">Sphinx</a>
+              and
+              <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+              <a href="https://github.com/pradyunsg/furo">Furo theme</a>. |
+            <a class="muted-link" href="../_sources/examples/mltools_example.ipynb.txt"
+               rel="nofollow">
+              Show Source
+            </a>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            Contents
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">1. mltools机器学习工具包应用示例</a></li>
+<li><a class="reference internal" href="#加载库和数据">2. 加载库和数据</a><ul>
+<li><a class="reference internal" href="#数据产生">2.1. 数据产生</a></li>
+<li><a class="reference internal" href="#加入Nan">2.2. 加入Nan</a></li>
+<li><a class="reference internal" href="#加入重复数据">2.3. 加入重复数据</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#数据整理（探索）">3. 数据整理（探索）</a><ul>
+<li><a class="reference internal" href="#空缺值分析">3.1. 空缺值分析</a></li>
+<li><a class="reference internal" href="#重复值分析">3.2. 重复值分析</a></li>
+<li><a class="reference internal" href="#唯一值分析">3.3. 唯一值分析</a></li>
+<li><a class="reference internal" href="#负值分析">3.4. 负值分析</a></li>
+<li><a class="reference internal" href="#异常数据分析">3.5. 异常数据分析</a></li>
+<li><a class="reference internal" href="#可视化">3.6. 可视化</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#数据清洗及特征选择">4. 数据清洗及特征选择</a><ul>
+<li><a class="reference internal" href="#VIF特征选择">4.1. VIF特征选择</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#特征转换与可视化">5. 特征转换与可视化</a><ul>
+<li><a class="reference internal" href="#特征转换及其正态检验">5.1. 特征转换及其正态检验</a></li>
+<li><a class="reference internal" href="#特征转换可视化">5.2. 特征转换可视化</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#模型选择及评估">6. 模型选择及评估</a><ul>
+<li><a class="reference internal" href="#模型初评">6.1. 模型初评</a></li>
+<li><a class="reference internal" href="#模型调参">6.2. 模型调参</a><ul>
+<li><a class="reference internal" href="#参数定义">6.2.1. 参数定义</a></li>
+<li><a class="reference internal" href="#参数网格搜索">6.2.2. 参数网格搜索</a></li>
+<li><a class="reference internal" href="#根据最佳参数绘图">6.2.3. 根据最佳参数绘图</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/scripts/main.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    </body>
+</html>

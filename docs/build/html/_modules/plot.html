@@ -1,43 +1,203 @@
+<!doctype html>
+<html class="no-js" lang="zh-CN">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" />
 
-<!DOCTYPE html>
-
-<html lang="zh-CN">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>plot &#8212; mltools 1.0 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/classic.css" />
+    <meta name="generator" content="sphinx-4.0.2, furo 2021.10.09"/>
+        <title>plot - mltools 1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=0254c309f5cadf746f1a613e7677379ac9c8cdcd" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?digest=16fb25fabf47304eee183a5e9af80b1ba98259b1" />
     
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/doctools.js"></script>
     
-    <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" /> 
-  </head><body>
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mltools 1.0 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Module code</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">plot</a></li> 
-      </ul>
-    </div>  
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body" role="main">
-            
-  <h1>Source code for plot</h1><div class="highlight"><pre>
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  body[data-theme="dark"] {
+    --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+  }
+  @media (prefers-color-scheme: dark) {
+    body:not([data-theme="light"]) {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+  }
+</style></head>
+  <body>
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <path stroke="none" d="M0 0h24v24H0z" />
+      <line x1="4" y1="6" x2="20" y2="6" />
+      <line x1="10" y1="12" x2="20" y2="12" />
+      <line x1="6" y1="18" x2="20" y2="18" />
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-half" viewBox="0 0 24 24">
+    <title>Auto light/dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M13 12h5" />
+      <path d="M13 15h4" />
+      <path d="M13 18h1" />
+      <path d="M13 9h4" />
+      <path d="M13 6h1" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../index.html"><div class="brand">mltools 1.0 documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
+  
+  
+  <span class="sidebar-brand-text">mltools 1.0 documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
+  <input class="sidebar-search" placeholder=Search name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../mltools/modules.html">mltools</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../mltools/explore.html">explore module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mltools/feature.html">feature module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mltools/mlcluster.html">mlcluster module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mltools/plot.html">plot module</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../examples/mltools_example.html">1. mltools机器学习工具包应用示例</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/mltools_example.html#加载库和数据">2. 加载库和数据</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/mltools_example.html#数据整理（探索）">3. 数据整理（探索）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/mltools_example.html#数据清洗及特征选择">4. 数据清洗及特征选择</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/mltools_example.html#特征转换与可视化">5. 特征转换与可视化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/mltools_example.html#模型选择及评估">6. 模型选择及评估</a></li>
+</ul>
+
+</div>
+</div>
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main">
+          <h1>Source code for plot</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">itertools</span>
 <span class="kn">import</span> <span class="nn">math</span>
 
@@ -52,22 +212,22 @@
 <span class="c1"># 2021.09.14 Created by Daniel SY wang</span>
 
 
-<div class="viewcode-block" id="get_colpairlist"><a class="viewcode-back" href="../generated/plot.html#plot.get_colpairlist">[docs]</a><span class="k">def</span> <span class="nf">get_colpairlist</span><span class="p">(</span><span class="n">col_list</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="get_colpairlist"><a class="viewcode-back" href="../mltools/plot.html#plot.get_colpairlist">[docs]</a><span class="k">def</span> <span class="nf">get_colpairlist</span><span class="p">(</span><span class="n">col_list</span><span class="p">):</span>
+    <span class="sd">"""</span>
 <span class="sd">    生成列对的列表，为探究多变量间分布关系作准备.</span>
 <span class="sd">    colpairlist的结构为[(x1,y1),(x2,y2),...,(xp1,yp1),(xp2,yp2),...,...]</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    col_list : list</span>
-<span class="sd">        such as [&#39;col1&#39;,&#39;col2&#39;,&#39;col3&#39;,&#39;col4&#39;]</span>
+<span class="sd">        such as ['col1','col2','col3','col4']</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    ------</span>
 <span class="sd">    colpairlist : list of tuple</span>
-<span class="sd">        column pair list for plot,such as [(&#39;col1&#39;,&#39;col2&#39;),(&#39;col1&#39;,&#39;col3&#39;),(&#39;col3&#39;,&#39;col4&#39;)] </span>
+<span class="sd">        column pair list for plot,such as [('col1','col2'),('col1','col3'),('col3','col4')] </span>
 
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
 <span class="c1">#    col_list=list(data.columns)[:5]</span>
     <span class="n">colpairlist</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">itertools</span><span class="o">.</span><span class="n">combinations</span><span class="p">(</span><span class="n">col_list</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
@@ -75,8 +235,8 @@
     <span class="k">return</span> <span class="n">colpairlist</span></div>
 
 
-<div class="viewcode-block" id="pair_plot"><a class="viewcode-back" href="../generated/plot.html#plot.pair_plot">[docs]</a><span class="k">def</span> <span class="nf">pair_plot</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">colpairlist</span><span class="p">,</span> <span class="n">ncol</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">figsize_x</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">scale_y</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">plot_type</span><span class="o">=</span><span class="s1">&#39;scatter&#39;</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="pair_plot"><a class="viewcode-back" href="../mltools/plot.html#plot.pair_plot">[docs]</a><span class="k">def</span> <span class="nf">pair_plot</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">colpairlist</span><span class="p">,</span> <span class="n">ncol</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">figsize_x</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">scale_y</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">plot_type</span><span class="o">=</span><span class="s1">'scatter'</span><span class="p">):</span>
+    <span class="sd">"""</span>
 <span class="sd">    生成多个关系图的列表，探究多变量间分布关系。</span>
 <span class="sd">    绘图方法包括：散点图(scatter)、散点回归图(reg)、回归残差图(resid)、散点分布图(joint)、核密度估计图(kde)</span>
 
@@ -85,7 +245,7 @@
 <span class="sd">    data : df</span>
 <span class="sd">        pandas Dataframe</span>
 <span class="sd">    colpairslist : list of tuple</span>
-<span class="sd">        column pair list, such as [(&#39;col1&#39;,&#39;col2&#39;),(&#39;col1&#39;,&#39;col3&#39;),(&#39;1&#39;,&#39;col4&#39;),(&#39;col2&#39;,&#39;col3&#39;),(&#39;col2&#39;,&#39;col4&#39;)]</span>
+<span class="sd">        column pair list, such as [('col1','col2'),('col1','col3'),('1','col4'),('col2','col3'),('col2','col4')]</span>
 <span class="sd">    ncol : int</span>
 <span class="sd">        subfigure column numbers in a row</span>
 <span class="sd">    figsize_x : float</span>
@@ -93,43 +253,43 @@
 <span class="sd">    scale_y : float</span>
 <span class="sd">        scale height</span>
 <span class="sd">    plot_type : string</span>
-<span class="sd">        &#39;scatter&#39;(default), &#39;reg&#39;,&#39;resid&#39;,&#39;joint&#39;,&#39;kde&#39;</span>
+<span class="sd">        'scatter'(default), 'reg','resid','joint','kde'</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    return : None</span>
 <span class="sd">        plot multiple figure matrix</span>
 
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">nrow</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">colpairlist</span><span class="p">)</span><span class="o">/</span><span class="n">ncol</span><span class="p">)</span>
 
-    <span class="k">if</span> <span class="n">plot_type</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;scatter&#39;</span><span class="p">,</span> <span class="s1">&#39;reg&#39;</span><span class="p">,</span> <span class="s1">&#39;resid&#39;</span><span class="p">,</span> <span class="s1">&#39;kde&#39;</span><span class="p">]:</span>
+    <span class="k">if</span> <span class="n">plot_type</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">'scatter'</span><span class="p">,</span> <span class="s1">'reg'</span><span class="p">,</span> <span class="s1">'resid'</span><span class="p">,</span> <span class="s1">'kde'</span><span class="p">]:</span>
         <span class="n">figsize_y</span> <span class="o">=</span> <span class="n">nrow</span><span class="o">*</span><span class="n">figsize_x</span><span class="o">/</span><span class="n">ncol</span><span class="o">*</span><span class="n">scale_y</span>
         <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span>
             <span class="n">nrows</span><span class="o">=</span><span class="n">nrow</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="n">ncol</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="n">figsize_x</span><span class="p">,</span> <span class="n">figsize_y</span><span class="p">))</span>
 
         <span class="k">for</span> <span class="n">colpair</span><span class="p">,</span> <span class="n">ax</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">colpairlist</span><span class="p">,</span> <span class="n">axes</span><span class="o">.</span><span class="n">flat</span><span class="p">):</span>
 
-            <span class="k">if</span> <span class="n">plot_type</span> <span class="o">==</span> <span class="s1">&#39;scatter&#39;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">plot_type</span> <span class="o">==</span> <span class="s1">'scatter'</span><span class="p">:</span>
                 <span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">colpair</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="n">colpair</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
-            <span class="k">elif</span> <span class="n">plot_type</span> <span class="o">==</span> <span class="s1">&#39;reg&#39;</span><span class="p">:</span>
+            <span class="k">elif</span> <span class="n">plot_type</span> <span class="o">==</span> <span class="s1">'reg'</span><span class="p">:</span>
                 <span class="n">sns</span><span class="o">.</span><span class="n">regplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">colpair</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="n">colpair</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
-            <span class="k">elif</span> <span class="n">plot_type</span> <span class="o">==</span> <span class="s1">&#39;resid&#39;</span><span class="p">:</span>
+            <span class="k">elif</span> <span class="n">plot_type</span> <span class="o">==</span> <span class="s1">'resid'</span><span class="p">:</span>
                 <span class="n">sns</span><span class="o">.</span><span class="n">residplot</span><span class="p">(</span>
                     <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">colpair</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="n">colpair</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">lowess</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-            <span class="k">elif</span> <span class="n">plot_type</span> <span class="o">==</span> <span class="s1">&#39;kde&#39;</span><span class="p">:</span>
+            <span class="k">elif</span> <span class="n">plot_type</span> <span class="o">==</span> <span class="s1">'kde'</span><span class="p">:</span>
                 <span class="n">sns</span><span class="o">.</span><span class="n">kdeplot</span><span class="p">(</span>
                     <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">colpair</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="n">colpair</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">shade</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
 
-    <span class="k">if</span> <span class="n">plot_type</span> <span class="o">==</span> <span class="s1">&#39;joint&#39;</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">plot_type</span> <span class="o">==</span> <span class="s1">'joint'</span><span class="p">:</span>
         <span class="k">for</span> <span class="n">colpair</span> <span class="ow">in</span> <span class="n">colpairlist</span><span class="p">:</span>
             <span class="n">sns</span> <span class="o">.</span><span class="n">jointplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">colpair</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="n">colpair</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
 
     <span class="k">return</span></div>
 
 
-<div class="viewcode-block" id="hist_plot"><a class="viewcode-back" href="../generated/plot.html#plot.hist_plot">[docs]</a><span class="k">def</span> <span class="nf">hist_plot</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">ncol</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">n_bin</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">figsize_x</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">scale_y</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="hist_plot"><a class="viewcode-back" href="../mltools/plot.html#plot.hist_plot">[docs]</a><span class="k">def</span> <span class="nf">hist_plot</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">ncol</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">n_bin</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">figsize_x</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">scale_y</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="sd">"""</span>
 <span class="sd">    plot histograms of DataFrame</span>
 
 <span class="sd">    Parameters</span>
@@ -148,15 +308,15 @@
 <span class="sd">    return : None</span>
 <span class="sd">        plot multiple figures</span>
 
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">nrow</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">columns</span><span class="p">))</span><span class="o">/</span><span class="n">ncol</span><span class="p">)</span>
 
     <span class="n">figsize_y</span> <span class="o">=</span> <span class="n">nrow</span><span class="o">*</span><span class="n">figsize_x</span><span class="o">/</span><span class="n">ncol</span><span class="o">*</span><span class="n">scale_y</span>
     <span class="n">data</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">layout</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">ncol</span><span class="p">),</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="n">figsize_x</span><span class="p">,</span> <span class="n">figsize_y</span><span class="p">),</span> <span class="n">bins</span><span class="o">=</span><span class="n">n_bin</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="trans_plot"><a class="viewcode-back" href="../generated/plot.html#plot.trans_plot">[docs]</a><span class="k">def</span> <span class="nf">trans_plot</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">trans_method_list</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">ncol</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">n_bin</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">figsize_x</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">scale_y</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="trans_plot"><a class="viewcode-back" href="../mltools/plot.html#plot.trans_plot">[docs]</a><span class="k">def</span> <span class="nf">trans_plot</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">trans_method_list</span><span class="o">=</span><span class="s1">'all'</span><span class="p">,</span> <span class="n">ncol</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">n_bin</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">figsize_x</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">scale_y</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="sd">"""</span>
 <span class="sd">    plot histograms of each column and its transformed of DataFrame \n</span>
 
 <span class="sd">    Parameters</span>
@@ -164,11 +324,11 @@
 <span class="sd">    data : df</span>
 <span class="sd">        pandas Dataframe</span>
 <span class="sd">    trans_method_list : list</span>
-<span class="sd">        a list of &#39;sqrt&#39;,&#39;cbrt&#39;,&#39;log1p&#39;,&#39;reciprocal&#39;,</span>
-<span class="sd">        &#39;square&#39;,&#39;cube&#39;,&#39;expm1&#39;,&#39;minmax&#39;,&#39;zscore&#39;,</span>
-<span class="sd">        &#39;robust&#39;,&#39;quant&#39;,&#39;box&#39;,&#39;yeo&#39;.</span>
+<span class="sd">        a list of 'sqrt','cbrt','log1p','reciprocal',</span>
+<span class="sd">        'square','cube','expm1','minmax','zscore',</span>
+<span class="sd">        'robust','quant','box','yeo'.</span>
 <span class="sd">        user can choice some transfomer method as a list.</span>
-<span class="sd">        such as: list of &#39;minmax&#39;,&#39;zscore&#39;,&#39;robust&#39;,&#39;box&#39;,&#39;yeo&#39;.</span>
+<span class="sd">        such as: list of 'minmax','zscore','robust','box','yeo'.</span>
 <span class="sd">        default includes all method.    </span>
 <span class="sd">    ncol : int</span>
 <span class="sd">        subfigure column numbers in a row</span>
@@ -182,10 +342,10 @@
 <span class="sd">    return : None</span>
 <span class="sd">        plot multiple figures</span>
 
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">trans_method_list</span> <span class="o">==</span> <span class="s1">&#39;all&#39;</span><span class="p">:</span>
-        <span class="n">trans_method_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;sqrt&#39;</span><span class="p">,</span> <span class="s1">&#39;cbrt&#39;</span><span class="p">,</span> <span class="s1">&#39;log1p&#39;</span><span class="p">,</span> <span class="s1">&#39;reciprocal&#39;</span><span class="p">,</span> <span class="s1">&#39;square&#39;</span><span class="p">,</span>
-                             <span class="s1">&#39;cube&#39;</span><span class="p">,</span> <span class="s1">&#39;expm1&#39;</span><span class="p">,</span> <span class="s1">&#39;minmax&#39;</span><span class="p">,</span> <span class="s1">&#39;zscore&#39;</span><span class="p">,</span> <span class="s1">&#39;robust&#39;</span><span class="p">,</span> <span class="s1">&#39;quant&#39;</span><span class="p">,</span> <span class="s1">&#39;box&#39;</span><span class="p">,</span> <span class="s1">&#39;yeo&#39;</span><span class="p">]</span>
+<span class="sd">    """</span>
+    <span class="k">if</span> <span class="n">trans_method_list</span> <span class="o">==</span> <span class="s1">'all'</span><span class="p">:</span>
+        <span class="n">trans_method_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'sqrt'</span><span class="p">,</span> <span class="s1">'cbrt'</span><span class="p">,</span> <span class="s1">'log1p'</span><span class="p">,</span> <span class="s1">'reciprocal'</span><span class="p">,</span> <span class="s1">'square'</span><span class="p">,</span>
+                             <span class="s1">'cube'</span><span class="p">,</span> <span class="s1">'expm1'</span><span class="p">,</span> <span class="s1">'minmax'</span><span class="p">,</span> <span class="s1">'zscore'</span><span class="p">,</span> <span class="s1">'robust'</span><span class="p">,</span> <span class="s1">'quant'</span><span class="p">,</span> <span class="s1">'box'</span><span class="p">,</span> <span class="s1">'yeo'</span><span class="p">]</span>
 
     <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
 
@@ -193,39 +353,39 @@
         <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data_col</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="n">col</span><span class="p">])</span>
         <span class="k">for</span> <span class="n">trans_method</span> <span class="ow">in</span> <span class="n">trans_method_list</span><span class="p">:</span>
             <span class="k">try</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">trans_method</span> <span class="o">==</span> <span class="s1">&#39;sqrt&#39;</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">trans_method</span> <span class="o">==</span> <span class="s1">'sqrt'</span><span class="p">:</span>
                     <span class="n">temp_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">data_col</span><span class="p">)</span>
-                <span class="k">elif</span> <span class="n">trans_method</span> <span class="o">==</span> <span class="s1">&#39;cbrt&#39;</span><span class="p">:</span>
+                <span class="k">elif</span> <span class="n">trans_method</span> <span class="o">==</span> <span class="s1">'cbrt'</span><span class="p">:</span>
                     <span class="n">temp_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cbrt</span><span class="p">(</span><span class="n">data_col</span><span class="p">)</span>
-                <span class="k">elif</span> <span class="n">trans_method</span> <span class="o">==</span> <span class="s1">&#39;log1p&#39;</span><span class="p">:</span>
+                <span class="k">elif</span> <span class="n">trans_method</span> <span class="o">==</span> <span class="s1">'log1p'</span><span class="p">:</span>
                     <span class="n">temp_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log1p</span><span class="p">(</span><span class="n">data_col</span><span class="p">)</span>
-                <span class="k">elif</span> <span class="n">trans_method</span> <span class="o">==</span> <span class="s1">&#39;reciprocal&#39;</span><span class="p">:</span>
+                <span class="k">elif</span> <span class="n">trans_method</span> <span class="o">==</span> <span class="s1">'reciprocal'</span><span class="p">:</span>
                     <span class="n">temp_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">reciprocal</span><span class="p">(</span><span class="n">data_col</span><span class="p">)</span>
-                <span class="k">elif</span> <span class="n">trans_method</span> <span class="o">==</span> <span class="s1">&#39;square&#39;</span><span class="p">:</span>
+                <span class="k">elif</span> <span class="n">trans_method</span> <span class="o">==</span> <span class="s1">'square'</span><span class="p">:</span>
                     <span class="n">temp_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">square</span><span class="p">(</span><span class="n">data_col</span><span class="p">)</span>
-                <span class="k">elif</span> <span class="n">trans_method</span> <span class="o">==</span> <span class="s1">&#39;cube&#39;</span><span class="p">:</span>
+                <span class="k">elif</span> <span class="n">trans_method</span> <span class="o">==</span> <span class="s1">'cube'</span><span class="p">:</span>
                     <span class="n">temp_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="n">data_col</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
-                <span class="k">elif</span> <span class="n">trans_method</span> <span class="o">==</span> <span class="s1">&#39;expm1&#39;</span><span class="p">:</span>
+                <span class="k">elif</span> <span class="n">trans_method</span> <span class="o">==</span> <span class="s1">'expm1'</span><span class="p">:</span>
                     <span class="n">temp_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">expm1</span><span class="p">(</span><span class="n">data_col</span><span class="p">)</span>
-                <span class="k">elif</span> <span class="n">trans_method</span> <span class="o">==</span> <span class="s1">&#39;minmax&#39;</span><span class="p">:</span>
+                <span class="k">elif</span> <span class="n">trans_method</span> <span class="o">==</span> <span class="s1">'minmax'</span><span class="p">:</span>
                     <span class="n">trans</span> <span class="o">=</span> <span class="n">MinMaxScaler</span><span class="p">()</span>
-                <span class="k">elif</span> <span class="n">trans_method</span> <span class="o">==</span> <span class="s1">&#39;zscore&#39;</span><span class="p">:</span>
+                <span class="k">elif</span> <span class="n">trans_method</span> <span class="o">==</span> <span class="s1">'zscore'</span><span class="p">:</span>
                     <span class="n">trans</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
-                <span class="k">elif</span> <span class="n">trans_method</span> <span class="o">==</span> <span class="s1">&#39;robust&#39;</span><span class="p">:</span>
+                <span class="k">elif</span> <span class="n">trans_method</span> <span class="o">==</span> <span class="s1">'robust'</span><span class="p">:</span>
                     <span class="n">trans</span> <span class="o">=</span> <span class="n">RobustScaler</span><span class="p">()</span>
-                <span class="k">elif</span> <span class="n">trans_method</span> <span class="o">==</span> <span class="s1">&#39;quant&#39;</span><span class="p">:</span>
+                <span class="k">elif</span> <span class="n">trans_method</span> <span class="o">==</span> <span class="s1">'quant'</span><span class="p">:</span>
                     <span class="n">trans</span> <span class="o">=</span> <span class="n">QuantileTransformer</span><span class="p">(</span>
-                        <span class="n">n_quantiles</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">output_distribution</span><span class="o">=</span><span class="s1">&#39;normal&#39;</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
-                <span class="k">elif</span> <span class="n">trans_method</span> <span class="o">==</span> <span class="s1">&#39;box&#39;</span><span class="p">:</span>
+                        <span class="n">n_quantiles</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">output_distribution</span><span class="o">=</span><span class="s1">'normal'</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">trans_method</span> <span class="o">==</span> <span class="s1">'box'</span><span class="p">:</span>
                     <span class="c1"># The Box-Cox transformation can only be applied to strictly positive data</span>
-                    <span class="n">trans</span> <span class="o">=</span> <span class="n">PowerTransformer</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;box-cox&#39;</span><span class="p">)</span>
-                <span class="k">elif</span> <span class="n">trans_method</span> <span class="o">==</span> <span class="s1">&#39;yeo&#39;</span><span class="p">:</span>
-                    <span class="n">trans</span> <span class="o">=</span> <span class="n">PowerTransformer</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;yeo-johnson&#39;</span><span class="p">)</span>
+                    <span class="n">trans</span> <span class="o">=</span> <span class="n">PowerTransformer</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">'box-cox'</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">trans_method</span> <span class="o">==</span> <span class="s1">'yeo'</span><span class="p">:</span>
+                    <span class="n">trans</span> <span class="o">=</span> <span class="n">PowerTransformer</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">'yeo-johnson'</span><span class="p">)</span>
 
-                <span class="k">if</span> <span class="n">trans_method</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;minmax&#39;</span><span class="p">,</span> <span class="s1">&#39;zscore&#39;</span><span class="p">,</span> <span class="s1">&#39;robust&#39;</span><span class="p">,</span> <span class="s1">&#39;quant&#39;</span><span class="p">,</span> <span class="s1">&#39;box&#39;</span><span class="p">,</span> <span class="s1">&#39;yeo&#39;</span><span class="p">]:</span>
+                <span class="k">if</span> <span class="n">trans_method</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">'minmax'</span><span class="p">,</span> <span class="s1">'zscore'</span><span class="p">,</span> <span class="s1">'robust'</span><span class="p">,</span> <span class="s1">'quant'</span><span class="p">,</span> <span class="s1">'box'</span><span class="p">,</span> <span class="s1">'yeo'</span><span class="p">]:</span>
                     <span class="n">temp_data</span> <span class="o">=</span> <span class="n">trans</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">data_col</span><span class="p">)</span>
 
-                <span class="n">col_name</span> <span class="o">=</span> <span class="n">col</span><span class="o">+</span><span class="s1">&#39;__&#39;</span><span class="o">+</span><span class="n">trans_method</span>
+                <span class="n">col_name</span> <span class="o">=</span> <span class="n">col</span><span class="o">+</span><span class="s1">'__'</span><span class="o">+</span><span class="n">trans_method</span>
                 <span class="n">df</span><span class="p">[</span><span class="n">col_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">temp_data</span>
             <span class="k">except</span><span class="p">:</span>
                 <span class="k">pass</span>
@@ -234,44 +394,36 @@
                   <span class="n">figsize_x</span><span class="o">=</span><span class="n">figsize_x</span><span class="p">,</span> <span class="n">scale_y</span><span class="o">=</span><span class="n">scale_y</span><span class="p">)</span>
     <span class="k">return</span> <span class="mi">0</span></div>
 </pre></div>
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          
+          
+        </div>
 
-            <div class="clearer"></div>
-          </div>
+        <div class="related-information">
+              Copyright &#169; 2021, Daniel SY Wang |
+            Built with <a href="https://www.sphinx-doc.org/">Sphinx</a>
+              and
+              <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+              <a href="https://github.com/pradyunsg/furo">Furo theme</a>.
         </div>
-      </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-<div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
-    <div class="searchformwrapper">
-    <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
-      <input type="submit" value="Go" />
-    </form>
+        
+      </footer>
     </div>
-</div>
-<script>$('#searchbox').show(0);</script>
-        </div>
-      </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mltools 1.0 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="index.html" >Module code</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">plot</a></li> 
-      </ul>
-    </div>
-    <div class="footer" role="contentinfo">
-        &#169; Copyright 2021, Daniel SY Wang.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.0.2.
-    </div>
-  </body>
+    <aside class="toc-drawer no-toc">
+      
+      
+      
+    </aside>
+  </div>
+</div><script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/scripts/main.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    </body>
 </html>

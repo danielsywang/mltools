@@ -39,7 +39,7 @@ release = '1.0'
 #  从Python代码的注释中自动导出API文档，添加'sphinx.ext.autodoc'
 #  注释代码主要同时支持google style和numpy style,添加'sphinx.ext.napoleon'
 extensions = ['sphinx.ext.autodoc', 'sphinx.ext.viewcode', 'sphinx.ext.githubpages', 
-            'sphinx.ext.intersphinx', 'sphinx.ext.napoleon']
+            'sphinx.ext.intersphinx', 'sphinx.ext.napoleon','nbsphinx']
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -63,8 +63,8 @@ exclude_patterns = []
 # a list of builtin themes.
 #
 # html_theme = 'alabaster'
-html_theme = 'classic'
-#html_theme =  'sphinx_rtd_theme' 
+html_theme = 'furo'
+
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
@@ -74,5 +74,5 @@ html_static_path = ['_static']
 html_theme_options = {
 #    "rightsidebar": "true",    #没有什么实际意义，只是把菜单搬到右边
 #    "relbarbgcolor": "black"
-    'stickysidebar': "true"
+#    'stickysidebar': "true"
 }
