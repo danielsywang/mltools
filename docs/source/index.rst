@@ -4,14 +4,13 @@
    contain the root `toctree` directive.
    examples/modules   
 
+.. include:: readme.rst
+
 Welcome to mltools' documentation!
-===========================================
-
-.. include:: examples.rst
-
+==================================
 .. toctree:: 
    :maxdepth: 4
-   :caption: Contents:
+   :caption: mltools module function
 
    mltools/modules
 

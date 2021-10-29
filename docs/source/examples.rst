@@ -5,12 +5,11 @@
    examples/modules   
 
 mltools应用举例 
-==================
+==========================
 
 
 .. toctree:: 
-   :caption: Contents:
-   :numbered:
+   :caption: mltools application example
 
    examples/mltools_example
 
