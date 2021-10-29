@@ -10,7 +10,8 @@ mltools应用举例
 
 .. toctree:: 
    :caption: mltools application example
-
+   :numbered:
+   
    examples/mltools_example
 
 
