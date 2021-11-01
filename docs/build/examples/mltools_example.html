@@ -478,7 +478,7 @@ div.rendered_html tbody tr:hover {
 </div>
 <section id="数据产生">
 <h2><span class="section-number">2.1. </span>数据产生<a class="headerlink" href="#数据产生" title="Permalink to this headline">¶</a></h2>
-<p>sklearn中的示例数据没有很好反映项目分析过程中的实际情况，因此自己产生数据尽量反映实际情况。选用make_classification产生样本数n_samples=500,特征数n_features=5的数据集，并将其转换成DataFrame格式。</p>
+<p>sklearn中的示例数据没有很好反映项目分析过程中的实际情况，因此自己产生数据尽量反映实际情况。选用make_blobs产生样本数n_samples=500,特征数n_features=5的数据集，并将其转换成DataFrame格式。</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
@@ -1427,7 +1427,7 @@ dtype: int64
 </section>
 <section id="异常数据分析">
 <h2><span class="section-number">3.5. </span>异常数据分析<a class="headerlink" href="#异常数据分析" title="Permalink to this headline">¶</a></h2>
-<p>异常值分析有两种方法：IQR和均值标准差方法，阈值可以任意设定。对IQR方法，通常设定method=‘IQR’, threshold=1.5；极端异常值分析threshold=3。均值标准差方法通常设定method=‘IQR’, threshold=3。 outlier_df表示各列异常值情况。异常值的处理在特征清洗与转换进行。</p>
+<p>异常值分析有两种方法：IQR和均值标准差方法，阈值可以任意设定。对IQR方法，通常设定method=‘IQR’, threshold=1.5；极端异常值分析threshold=3。均值标准差方法通常设定method=‘mean_std’, threshold=3。 outlier_df表示各列异常值情况。异常值的处理在特征清洗与转换进行。</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
@@ -1846,13 +1846,11 @@ dtype: int64
 </div>
 </div>
 <div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
-</pre></div>
+<div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<div class="highlight"><pre>
-0
-</pre></div></div>
+<img alt="../_images/examples_mltools_example_47_0.png" src="../_images/examples_mltools_example_47_0.png"/>
+</div>
 </div>
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
@@ -1861,18 +1859,11 @@ dtype: int64
 <img alt="../_images/examples_mltools_example_47_1.png" src="../_images/examples_mltools_example_47_1.png"/>
 </div>
 </div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<img alt="../_images/examples_mltools_example_47_2.png" src="../_images/examples_mltools_example_47_2.png"/>
-</div>
-</div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/examples_mltools_example_47_3.png" src="../_images/examples_mltools_example_47_3.png"/>
+<img alt="../_images/examples_mltools_example_47_2.png" src="../_images/examples_mltools_example_47_2.png"/>
 </div>
 </div>
 </section>
@@ -1982,33 +1973,9 @@ dtype: int64
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 [IterativeImputer] Completing matrix with shape (530, 3)
-[IterativeImputer] Ending imputation round 1/10, elapsed time 0.02
-[IterativeImputer] Change: 7.620284332034443, scaled tolerance: 0.011335356993707154
-[IterativeImputer] Ending imputation round 2/10, elapsed time 0.02
-[IterativeImputer] Change: 0.11316669398578494, scaled tolerance: 0.011335356993707154
-[IterativeImputer] Ending imputation round 3/10, elapsed time 0.02
-[IterativeImputer] Change: 0.00012243243720222452, scaled tolerance: 0.011335356993707154
-[IterativeImputer] Early stopping criterion reached.
-[IterativeImputer] Completing matrix with shape (530, 3)
 [IterativeImputer] Ending imputation round 1/10, elapsed time 0.00
 [IterativeImputer] Change: 7.620284332034443, scaled tolerance: 0.011335356993707154
-[IterativeImputer] Ending imputation round 2/10, elapsed time 0.00
-[IterativeImputer] Change: 0.11316669398578494, scaled tolerance: 0.011335356993707154
-[IterativeImputer] Ending imputation round 3/10, elapsed time 0.01
-[IterativeImputer] Change: 0.00012243243720222452, scaled tolerance: 0.011335356993707154
-[IterativeImputer] Early stopping criterion reached.
-[IterativeImputer] Completing matrix with shape (530, 3)
-[IterativeImputer] Ending imputation round 1/10, elapsed time 0.00
-[IterativeImputer] Change: 7.620284332034443, scaled tolerance: 0.011335356993707154
-[IterativeImputer] Ending imputation round 2/10, elapsed time 0.00
-[IterativeImputer] Change: 0.11316669398578494, scaled tolerance: 0.011335356993707154
-[IterativeImputer] Ending imputation round 3/10, elapsed time 0.01
-[IterativeImputer] Change: 0.00012243243720222452, scaled tolerance: 0.011335356993707154
-[IterativeImputer] Early stopping criterion reached.
-[IterativeImputer] Completing matrix with shape (530, 3)
-[IterativeImputer] Ending imputation round 1/10, elapsed time 0.00
-[IterativeImputer] Change: 7.620284332034443, scaled tolerance: 0.011335356993707154
-[IterativeImputer] Ending imputation round 2/10, elapsed time 0.00
+[IterativeImputer] Ending imputation round 2/10, elapsed time 0.01
 [IterativeImputer] Change: 0.11316669398578494, scaled tolerance: 0.011335356993707154
 [IterativeImputer] Ending imputation round 3/10, elapsed time 0.01
 [IterativeImputer] Change: 0.00012243243720222452, scaled tolerance: 0.011335356993707154
@@ -2080,7 +2047,71 @@ dtype: int64
 [IterativeImputer] Completing matrix with shape (530, 3)
 [IterativeImputer] Ending imputation round 1/10, elapsed time 0.00
 [IterativeImputer] Change: 7.620284332034443, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Ending imputation round 2/10, elapsed time 0.01
+[IterativeImputer] Change: 0.11316669398578494, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Ending imputation round 3/10, elapsed time 0.01
+[IterativeImputer] Change: 0.00012243243720222452, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Early stopping criterion reached.
+[IterativeImputer] Completing matrix with shape (530, 3)
+[IterativeImputer] Ending imputation round 1/10, elapsed time 0.00
+[IterativeImputer] Change: 7.620284332034443, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Ending imputation round 2/10, elapsed time 0.01
+[IterativeImputer] Change: 0.11316669398578494, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Ending imputation round 3/10, elapsed time 0.01
+[IterativeImputer] Change: 0.00012243243720222452, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Early stopping criterion reached.
+[IterativeImputer] Completing matrix with shape (530, 3)
+[IterativeImputer] Ending imputation round 1/10, elapsed time 0.00
+[IterativeImputer] Change: 7.620284332034443, scaled tolerance: 0.011335356993707154
 [IterativeImputer] Ending imputation round 2/10, elapsed time 0.00
+[IterativeImputer] Change: 0.11316669398578494, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Ending imputation round 3/10, elapsed time 0.01
+[IterativeImputer] Change: 0.00012243243720222452, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Early stopping criterion reached.
+[IterativeImputer] Completing matrix with shape (530, 3)
+[IterativeImputer] Ending imputation round 1/10, elapsed time 0.00
+[IterativeImputer] Change: 7.620284332034443, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Ending imputation round 2/10, elapsed time 0.01
+[IterativeImputer] Change: 0.11316669398578494, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Ending imputation round 3/10, elapsed time 0.01
+[IterativeImputer] Change: 0.00012243243720222452, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Early stopping criterion reached.
+[IterativeImputer] Completing matrix with shape (530, 3)
+[IterativeImputer] Ending imputation round 1/10, elapsed time 0.00
+[IterativeImputer] Change: 7.620284332034443, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Ending imputation round 2/10, elapsed time 0.00
+[IterativeImputer] Change: 0.11316669398578494, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Ending imputation round 3/10, elapsed time 0.01
+[IterativeImputer] Change: 0.00012243243720222452, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Early stopping criterion reached.
+[IterativeImputer] Completing matrix with shape (530, 3)
+[IterativeImputer] Ending imputation round 1/10, elapsed time 0.00
+[IterativeImputer] Change: 7.620284332034443, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Ending imputation round 2/10, elapsed time 0.01
+[IterativeImputer] Change: 0.11316669398578494, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Ending imputation round 3/10, elapsed time 0.01
+[IterativeImputer] Change: 0.00012243243720222452, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Early stopping criterion reached.
+[IterativeImputer] Completing matrix with shape (530, 3)
+[IterativeImputer] Ending imputation round 1/10, elapsed time 0.00
+[IterativeImputer] Change: 7.620284332034443, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Ending imputation round 2/10, elapsed time 0.01
+[IterativeImputer] Change: 0.11316669398578494, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Ending imputation round 3/10, elapsed time 0.01
+[IterativeImputer] Change: 0.00012243243720222452, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Early stopping criterion reached.
+[IterativeImputer] Completing matrix with shape (530, 3)
+[IterativeImputer] Ending imputation round 1/10, elapsed time 0.00
+[IterativeImputer] Change: 7.620284332034443, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Ending imputation round 2/10, elapsed time 0.00
+[IterativeImputer] Change: 0.11316669398578494, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Ending imputation round 3/10, elapsed time 0.01
+[IterativeImputer] Change: 0.00012243243720222452, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Early stopping criterion reached.
+[IterativeImputer] Completing matrix with shape (530, 3)
+[IterativeImputer] Ending imputation round 1/10, elapsed time 0.00
+[IterativeImputer] Change: 7.620284332034443, scaled tolerance: 0.011335356993707154
+[IterativeImputer] Ending imputation round 2/10, elapsed time 0.01
 [IterativeImputer] Change: 0.11316669398578494, scaled tolerance: 0.011335356993707154
 [IterativeImputer] Ending imputation round 3/10, elapsed time 0.01
 [IterativeImputer] Change: 0.00012243243720222452, scaled tolerance: 0.011335356993707154
@@ -2120,7 +2151,7 @@ dtype: int64
 [IterativeImputer] Completing matrix with shape (530, 3)
 [IterativeImputer] Ending imputation round 1/10, elapsed time 0.00
 [IterativeImputer] Change: 7.620284332034443, scaled tolerance: 0.011335356993707154
-[IterativeImputer] Ending imputation round 2/10, elapsed time 0.00
+[IterativeImputer] Ending imputation round 2/10, elapsed time 0.01
 [IterativeImputer] Change: 0.11316669398578494, scaled tolerance: 0.011335356993707154
 [IterativeImputer] Ending imputation round 3/10, elapsed time 0.01
 [IterativeImputer] Change: 0.00012243243720222452, scaled tolerance: 0.011335356993707154
@@ -2128,55 +2159,15 @@ dtype: int64
 [IterativeImputer] Completing matrix with shape (530, 3)
 [IterativeImputer] Ending imputation round 1/10, elapsed time 0.00
 [IterativeImputer] Change: 7.620284332034443, scaled tolerance: 0.011335356993707154
-[IterativeImputer] Ending imputation round 2/10, elapsed time 0.00
+[IterativeImputer] Ending imputation round 2/10, elapsed time 0.01
 [IterativeImputer] Change: 0.11316669398578494, scaled tolerance: 0.011335356993707154
-[IterativeImputer] Ending imputation round 3/10, elapsed time 0.01
+[IterativeImputer] Ending imputation round 3/10, elapsed time 0.02
 [IterativeImputer] Change: 0.00012243243720222452, scaled tolerance: 0.011335356993707154
 [IterativeImputer] Early stopping criterion reached.
 [IterativeImputer] Completing matrix with shape (530, 3)
 [IterativeImputer] Ending imputation round 1/10, elapsed time 0.00
 [IterativeImputer] Change: 7.620284332034443, scaled tolerance: 0.011335356993707154
-[IterativeImputer] Ending imputation round 2/10, elapsed time 0.00
-[IterativeImputer] Change: 0.11316669398578494, scaled tolerance: 0.011335356993707154
-[IterativeImputer] Ending imputation round 3/10, elapsed time 0.01
-[IterativeImputer] Change: 0.00012243243720222452, scaled tolerance: 0.011335356993707154
-[IterativeImputer] Early stopping criterion reached.
-[IterativeImputer] Completing matrix with shape (530, 3)
-[IterativeImputer] Ending imputation round 1/10, elapsed time 0.00
-[IterativeImputer] Change: 7.620284332034443, scaled tolerance: 0.011335356993707154
-[IterativeImputer] Ending imputation round 2/10, elapsed time 0.00
-[IterativeImputer] Change: 0.11316669398578494, scaled tolerance: 0.011335356993707154
-[IterativeImputer] Ending imputation round 3/10, elapsed time 0.01
-[IterativeImputer] Change: 0.00012243243720222452, scaled tolerance: 0.011335356993707154
-[IterativeImputer] Early stopping criterion reached.
-[IterativeImputer] Completing matrix with shape (530, 3)
-[IterativeImputer] Ending imputation round 1/10, elapsed time 0.00
-[IterativeImputer] Change: 7.620284332034443, scaled tolerance: 0.011335356993707154
-[IterativeImputer] Ending imputation round 2/10, elapsed time 0.00
-[IterativeImputer] Change: 0.11316669398578494, scaled tolerance: 0.011335356993707154
-[IterativeImputer] Ending imputation round 3/10, elapsed time 0.01
-[IterativeImputer] Change: 0.00012243243720222452, scaled tolerance: 0.011335356993707154
-[IterativeImputer] Early stopping criterion reached.
-[IterativeImputer] Completing matrix with shape (530, 3)
-[IterativeImputer] Ending imputation round 1/10, elapsed time 0.00
-[IterativeImputer] Change: 7.620284332034443, scaled tolerance: 0.011335356993707154
-[IterativeImputer] Ending imputation round 2/10, elapsed time 0.00
-[IterativeImputer] Change: 0.11316669398578494, scaled tolerance: 0.011335356993707154
-[IterativeImputer] Ending imputation round 3/10, elapsed time 0.01
-[IterativeImputer] Change: 0.00012243243720222452, scaled tolerance: 0.011335356993707154
-[IterativeImputer] Early stopping criterion reached.
-[IterativeImputer] Completing matrix with shape (530, 3)
-[IterativeImputer] Ending imputation round 1/10, elapsed time 0.00
-[IterativeImputer] Change: 7.620284332034443, scaled tolerance: 0.011335356993707154
-[IterativeImputer] Ending imputation round 2/10, elapsed time 0.00
-[IterativeImputer] Change: 0.11316669398578494, scaled tolerance: 0.011335356993707154
-[IterativeImputer] Ending imputation round 3/10, elapsed time 0.01
-[IterativeImputer] Change: 0.00012243243720222452, scaled tolerance: 0.011335356993707154
-[IterativeImputer] Early stopping criterion reached.
-[IterativeImputer] Completing matrix with shape (530, 3)
-[IterativeImputer] Ending imputation round 1/10, elapsed time 0.00
-[IterativeImputer] Change: 7.620284332034443, scaled tolerance: 0.011335356993707154
-[IterativeImputer] Ending imputation round 2/10, elapsed time 0.00
+[IterativeImputer] Ending imputation round 2/10, elapsed time 0.01
 [IterativeImputer] Change: 0.11316669398578494, scaled tolerance: 0.011335356993707154
 [IterativeImputer] Ending imputation round 3/10, elapsed time 0.01
 [IterativeImputer] Change: 0.00012243243720222452, scaled tolerance: 0.011335356993707154

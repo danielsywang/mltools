@@ -192,4 +192,4 @@ def trans_plot(data, trans_method_list='all', ncol=5, n_bin=100, figsize_x=20, s
 
         hist_plot(df, ncol=ncol, n_bin=n_bin,
                   figsize_x=figsize_x, scale_y=scale_y)
-    return 0
+    return 
